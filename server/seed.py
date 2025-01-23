@@ -1,9 +1,9 @@
 from app import app
-from models import db, Player
+from models import db, User
 
 with app.app_context():
-    Player.query.delete()
+    User.query.delete()
 
-    player1 = Player(id=1, name='Hosea Karanja', email='karanjamungai@gmail.com', password='1234@!')
+    player1 = User(id=1, name='Hosea Karanja', email='karanjamungai@gmail.com', password='1234@!')
     db.session.add(player1)
     db.session.commit()
