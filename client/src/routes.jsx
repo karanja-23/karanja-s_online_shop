@@ -1,5 +1,7 @@
 import Home from "./Pages/Home"
 import Login from "./Pages/Login"
+import AdminLogin from "./Admin/AdminLogin"
+import AdminHome from "./Admin/AdminHome"
 const routes=[
     {
         path:"/",
@@ -7,8 +9,15 @@ const routes=[
     },
     {
         path:"/login",
-        element:<Login/>,
-
+        element:<Login/>
+    },
+    {
+        path:"/admin",
+        element:<AdminLogin/>
+    },
+    {
+        path:"/admin/home",
+        element:<AdminHome/>
     }
 ]
 
