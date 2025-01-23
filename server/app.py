@@ -20,6 +20,10 @@ def add_user():
         email=request.json.get('email'),
         password=request.json.get('password')
     )
+    if User.query.filter(User.email==new_user.email).first():
+        return jsonify({'message': 'email already exists'}),409
+    if User.query.filter(User.name==new_user.name).first():
+        return jsonify({'message': 'username already exists'}),409
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'message':'User added succesfully'}),201
