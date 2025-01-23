@@ -1,12 +1,40 @@
 
-import { useState } from "react"
+import { useState,useEffect } from "react"
 function SignUp(){
     const [name,setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorName, setErrorName] = useState('');
+    const [errorEmail, setErrorEmail] = useState('');
+    const [errorPassword, setErrorPassword] = useState('');
+   
+    useEffect(() => {
+        if (name !== '' && errorName){
+            setErrorName(false)
+        }
+        if (email !== '' && errorEmail){
+            setErrorEmail(false)
+        }
+        if (password !== '' && errorPassword){
+            setErrorPassword(false)
+        }
+        
+    },[name, email, password, errorName, errorEmail, errorPassword])
 
     function handleSubmit(event){
         event.preventDefault();
+        if (name == ''){
+            setErrorName(true)
+            return;
+        }
+        if (email == ''){
+            setErrorEmail(true)
+            return;
+        }
+        if (password == ''){
+            setErrorPassword(true)
+            return;
+        }
         const newUser = {
             name,
             email,
@@ -37,8 +65,37 @@ function SignUp(){
             <form onSubmit={handleSubmit} >
                 <h1>Sign Up</h1>
                 <input onChange={(e) => setName(e.target.value)}  type="text" placeholder="Enter your name ..."/>
+                {errorName ? <p style={{
+                    color: 'red',
+                    position: 'absolute',
+                    fontSize: '0.75em',
+                    fontWeight: '400',
+                    top: '29%',
+                    left: '50%',
+                    transform: 'translateX(-50%)'
+                }}>** You must enter a name **</p> : null}
                 <input onChange={(e) => setEmail(e.target.value)} type="text" placeholder="Enter your email address ..."/>
+                {errorEmail ? <p style={{
+                    color: 'red',
+                    position: 'absolute',
+                    fontSize: '0.75em',
+                    fontWeight: '400',
+                    top: '41%',
+                    left: '50%',
+                    transform: 'translateX(-50%)'
+                }}>** You must enter an email address **</p> : null}
+               
                 <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Generate a password"/>
+                {errorPassword ? <p style={{
+                    color: 'red',
+                    position: 'absolute',
+                    fontSize: '0.75em',
+                    fontWeight: '400',
+                    top: '53%',
+                    left: '50%',
+                    transform: 'translateX(-50%)'
+                }}>** You must enter a password **</p> : null}
+               
                 <input type="submit" value="Create Account"/>
             </form>
             

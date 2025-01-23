@@ -11,6 +11,7 @@ class User(db.Model, SerializerMixin):
     name=db.Column(db.String(255), nullable=False)
     email=db.Column(db.String(255), nullable=False)
     password=db.Column(db.String(255), nullable=False)
+    role= db.Column(db.String(255), default='user')
     
     def __repr__(self):
         return f'<Player {self.name}>'

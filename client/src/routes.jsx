@@ -1,5 +1,6 @@
 import Home from "./Pages/Home"
 import Login from "./Pages/Login"
+import AdminLogin from "./Components/AdminLogin"
 const routes=[
     {
         path:"/",
@@ -7,9 +8,13 @@ const routes=[
     },
     {
         path:"/login",
-        element:<Login/>,
-
-    }
+        element:<Login/>
+    },
+    {
+        path:"/admin",
+        element:<AdminLogin/>
+    },
+  
 ]
 
 export default routes
