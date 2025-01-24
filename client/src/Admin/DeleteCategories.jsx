@@ -1,14 +1,13 @@
 import Nav from "./AdminNavBar"
 import AdminMenu from "./AdminMenu"
 import { useState, useEffect } from "react"
+import { data } from "react-router-dom"
 
 
-function ViewCategories(){
+function DeleteCategories(){
     const[categories, setCategories] = useState(null)
-    const [count, setCount] = useState(1)
-    function handleadd(){
-        setCount(count+1)
-    }
+    const[isDelete, setIsDelete] = useState(false)
+  
   useEffect(()=>{
     fetch('http://localhost:5555/categories',{
         method: 'GET',
@@ -18,8 +17,33 @@ function ViewCategories(){
     })
     .then(response => response.json())
     .then(data => setCategories(data))
-  },[])  
-  
+  },[isDelete])  
+  function handleDelete(id){
+    fetch(`http://localhost:5555/category/${id}`,{
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    setIsDelete(true)
+    }
+    useEffect(() => {
+        if (isDelete) {
+          fetch('http://localhost:5555/categories',{
+            method: 'GET',
+            headers: {
+              'Content-Type':'application/json'
+            }        
+          })
+          .then(response => response.json())
+          .then(data => {
+            setCategories(data)
+            setIsDelete(false)
+          })
+        }
+      }, [isDelete])
     return(
         <div>
             <Nav/>
@@ -32,7 +56,10 @@ function ViewCategories(){
                             
                             return <div className="category-items" key={category.id}>
                                 {index+1}. {category.name}
-
+                                    <div id="btn-container">
+            
+                                        <button onClick={() => handleDelete(category.id)}>Delete</button>
+                                    </div>                
                                 </div>
                             
                         })              
@@ -45,4 +72,4 @@ function ViewCategories(){
     )
 }
 
-export default ViewCategories
+export default DeleteCategories
