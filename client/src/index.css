@@ -242,14 +242,55 @@
     padding: 0px 20px;
     box-sizing: border-box;
 }
+#admin-menu{
+    position: absolute;
+    top: 104px;
+    left: 1px;
+    min-height: calc(100vh - 110px);
+    min-width: 350px;
+    background-color: rgb(15, 23, 66);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+    border-radius: 10px;
+    padding: 20px 0px;
+    box-sizing: border-box; 
+}
+#adminmenuItems{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 0px 20px;
+    box-sizing: border-box;
+    position: relative;
+    width: 100%
+}
+#adminmenuItems li{
+    width: 100%;
+    list-style: none;
+    text-align: center;
+    padding: 20px 50px;
+    
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
 
-
-
-
+#adminmenuItems li:hover{
+    background-color: rgb(197, 199, 206);
+    color: rgb(15, 23, 66);
+}
 
 
 @media only screen and (max-width: 1170px) {
     #register{
         width: 60%;
+    }
+    #admin-menu{
+        min-width: 270px;
     }
 }
