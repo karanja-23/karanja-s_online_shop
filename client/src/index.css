@@ -277,6 +277,13 @@
     color: rgb(119, 105, 105);
     cursor: pointer;
 }
+.products a{
+    text-decoration: none;
+    color: rgb(179, 161, 161);
+}
+.products .active{
+    color: maroon;
+}
 .item{
     list-style: none;
     width: 100%;
@@ -298,8 +305,19 @@
     margin-left: 10px;
     
 }
-
-
+#admin-content{
+    position: absolute;
+    top: 105px;
+    left: 355px;
+    min-height: calc(100vh - 110px);
+    min-width: calc(100vw - 360px);
+    background-color: rgb(216, 236, 253);
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+    padding: 20px 0px;
+    box-sizing: border-box; 
+}
 
 
 
@@ -313,6 +331,9 @@
     #admin-menu{
         min-width: 270px;
     }
- 
+    #admin-content{
+        left: 275px;
+        min-width: calc(100vw - 280px);
+    }
   
 }

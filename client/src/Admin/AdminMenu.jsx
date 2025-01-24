@@ -1,6 +1,7 @@
 import { faHouse , faEye, faPlus, faFilePen, faTrash, faChevronDown} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom';
 function AdminMenu() {
     const [productsIsExpanded, setProductsIsExpanded] = useState(false);
     const [categoiesIsExpanded, setCategoriesIsExpanded] = useState(false);
@@ -28,8 +29,8 @@ function AdminMenu() {
 
             <ul id="admin-menuItems">
                 <li className='category'><span onClick={handleProductsExpand}>Products<FontAwesomeIcon className='expand' icon={faChevronDown} /></span>
-                    <ul style={{display: productsIsExpanded ? 'block' : 'none'}} >
-                        <li className='item'><FontAwesomeIcon icon={faEye} />View Products</li>
+                    <ul className='products' style={{display: productsIsExpanded ? 'block' : 'none'}} >
+                        <li className='item'><NavLink to="/admin/products"><FontAwesomeIcon style={{marginRight: '10px'}} icon={faEye} />View Products</NavLink></li>
                         <li className='item'><FontAwesomeIcon icon={faPlus} />Add Products</li>
                         <li className='item'><FontAwesomeIcon icon={faFilePen} />Edit Products</li>
                         <li className='item'><FontAwesomeIcon icon={faTrash} />Delete Products</li>

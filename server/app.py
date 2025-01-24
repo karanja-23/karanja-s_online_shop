@@ -1,6 +1,6 @@
-from flask import Flask, request,jsonify
+from flask import Flask, request,jsonify,make_response
 from flask_cors import CORS
-from models import db, User
+from models import db, User,Product
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 
@@ -36,6 +36,16 @@ def get_user(email):
     else:
         return jsonify({'message': 'Username does not exist'})  
 
-
+@app.route('/products', methods=['GET'])
+def get_products():
+    products = Product.query.all()
+    
+    response_body =  [product.to_dict() for product in products]
+    response = make_response(
+        jsonify(response_body),
+        200,
+        {'Content-Type': 'application/json'}
+    )
+    return response
 if __name__ == '__main__':
     app.run(host='localhost', port=5555,debug=True)
