@@ -1,6 +1,6 @@
 from flask import Flask, request,jsonify,make_response
 from flask_cors import CORS
-from models import db, User,Product
+from models import db, User,Product,Categories
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 
@@ -47,5 +47,24 @@ def get_products():
         {'Content-Type': 'application/json'}
     )
     return response
+@app.route('/category', methods=['GET','POST'])
+def add_category():
+    new_name =request.json.get('name')
+    new_category = Categories(
+        name = new_name
+    )
+    if Categories.query.filter(Categories.name == new_name).first():
+        return jsonify({'message' : "Category already exists"}), 409
+    else:
+
+        db.session.add(new_category)
+        db.session.commit()
+        return jsonify({"message": "Categoryadded succesfully"}, 200)
+        
+        
+        
+
+
+
 if __name__ == '__main__':
     app.run(host='localhost', port=5555,debug=True)

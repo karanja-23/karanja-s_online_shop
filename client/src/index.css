@@ -277,11 +277,11 @@
     color: rgb(119, 105, 105);
     cursor: pointer;
 }
-.products a{
+.products a, .categories a{
     text-decoration: none;
     color: rgb(179, 161, 161);
 }
-.products .active{
+.products .active, .categories .active{
     color: maroon;
 }
 .item{
@@ -301,8 +301,8 @@
     color: maroon;
 }
 .expand{
-    font-size: 0.8em;
-    margin-left: 10px;
+    font-size: 0.7em;
+    margin-left: 4px;   
     
 }
 #admin-content{
@@ -318,6 +318,41 @@
     padding: 20px 0px;
     box-sizing: border-box; 
 }
+
+#add-category{
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+    align-items: center;
+    margin-top: 30px;
+}
+#add-category-field{
+    width: 200px;
+    padding: 5px 15px;
+    color: rgb(82, 73, 73);
+    font-size: 1.0em;
+    text-decoration: wavy;
+}
+#add-category-btn{
+    width: fit-content;
+    padding: 5px 17px;
+    background-color: maroon;
+    border: none;
+    color: aliceblue;
+    font-weight: 900;
+    font-size: 1.2em;
+}
+#add-category-btn:hover{
+    background-color: rgb(44, 49, 73);
+    color: rgb(245, 196, 196);
+}
+
+
+
+
+
+
+
 
 
 
