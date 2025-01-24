@@ -1,22 +1,60 @@
-import { Outlet } from "react-router-dom"
+import { faHouse , faEye, faPlus, faFilePen, faTrash, faChevronDown} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState, useEffect } from 'react'
 function AdminMenu() {
+    const [productsIsExpanded, setProductsIsExpanded] = useState(false);
+    const [categoiesIsExpanded, setCategoriesIsExpanded] = useState(false);
+    useEffect(() => {
+        setProductsIsExpanded(true)
+    }, [])
+    function handleProductsExpand(){
+        setProductsIsExpanded(!productsIsExpanded)
+    }
+    function handleCategoriesExpand(){
+        setCategoriesIsExpanded(!categoiesIsExpanded)
+    }
+
     return (
         <div id="admin-menu">
-            <h1 style={{
-                textAlign: 'center',
-                color: 'maroon',
-                textDecoration: 'underline',
-                textUnderlineOffset: '4px'
-            }}>Admin Menu</h1>
-            <ul id="adminmenuItems">
-                <li>Add Products</li>
-                <li>Add Categories</li>
-                <li>Edit Product</li>
-                <li>Show Product list</li>
+            <span style={{
+                fontSize: '20px',
+                fontWeight: '200',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                cursor: 'pointer'
+            }}><FontAwesomeIcon icon={faHouse} /> Dashboard</span>
+
+            <ul id="admin-menuItems">
+                <li className='category'><span onClick={handleProductsExpand}>Products<FontAwesomeIcon className='expand' icon={faChevronDown} /></span>
+                    <ul style={{display: productsIsExpanded ? 'block' : 'none'}} >
+                        <li className='item'><FontAwesomeIcon icon={faEye} />View Products</li>
+                        <li className='item'><FontAwesomeIcon icon={faPlus} />Add Products</li>
+                        <li className='item'><FontAwesomeIcon icon={faFilePen} />Edit Products</li>
+                        <li className='item'><FontAwesomeIcon icon={faTrash} />Delete Products</li>
+                    </ul>
+                </li>
+                <li className='category'><span onClick={handleCategoriesExpand}>Categories<FontAwesomeIcon className='expand' icon={faChevronDown} /></span>
+                    <ul style={{
+                        display: categoiesIsExpanded ? 'block' : 'none'
+                    }}>
+                        <li className='item'><FontAwesomeIcon icon={faEye} />View Categories</li>
+                        <li className='item'><FontAwesomeIcon icon={faPlus} />Add Categories</li>
+                        <li className='item'><FontAwesomeIcon icon={faFilePen} />Edit Categories</li>
+                        <li className='item'><FontAwesomeIcon icon={faTrash} />Delete Categories</li>
+                    </ul>
+                </li>
+                <li className='category'>Orders<FontAwesomeIcon className='expand' icon={faChevronDown} />
+
+
+                </li>
+                <li className='category'>Users<FontAwesomeIcon className='expand' icon={faChevronDown} />
+
+                </li>
+
             </ul>
-            <div id="admin-content">
-                <Outlet />
-            </div>
+            
         </div>
     )
 }

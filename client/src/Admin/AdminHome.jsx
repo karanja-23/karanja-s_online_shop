@@ -17,6 +17,9 @@ function AdminHome(){
         <div>
             <Nav/>
             <AdminMenu/>
+            <div id="admin-content">
+
+            </div>
             
         </div>
     )
