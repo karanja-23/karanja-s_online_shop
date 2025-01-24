@@ -1,4 +1,4 @@
-
+import { Outlet } from "react-router-dom"
 function AdminMenu() {
     return (
         <div id="admin-menu">
@@ -14,6 +14,9 @@ function AdminMenu() {
                 <li>Edit Product</li>
                 <li>Show Product list</li>
             </ul>
+            <div id="admin-content">
+                <Outlet />
+            </div>
         </div>
     )
 }

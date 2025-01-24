@@ -1,5 +1,7 @@
 import {Toast, ToastFailed} from "../Components/Toast";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 function AdminSignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] =useState('')
@@ -9,8 +11,10 @@ function AdminSignIn() {
     const [emailNotFound, setEmailNotFound] = useState(false)
     const [wrongPassword, setWrongPassword] = useState(false)
     const [notAdmin, setNotAdmin] = useState(false)
-    const [user, setUser] = useState(null)
+    {/*const [user, setUser] = useState(null)*/}
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const navigate = useNavigate()
+    const {setIsAuthenticated, setUser} = useContext(AuthContext)
 
     useEffect(() => {
         if (emailError && email !== ''){
@@ -44,7 +48,7 @@ function AdminSignIn() {
                 setEmailNotFound(true)
                 setTimeout(() => {
                     setEmailNotFound(false)
-                }, 3000)
+                }, 1000)
             }
             else{
                 if ('password' in data && data['password']== password){
@@ -53,17 +57,20 @@ function AdminSignIn() {
                         setshowToast(true)
                         setTimeout(() => {
                             setshowToast(false)
-                        },3000)
-                        event.target.reset()
-                        setUser(data['name'])
+                        },1000)
+                        event.target.reset()                        
                         setIsLoggedIn(true)
-                        handleLogin()
+                        setIsAuthenticated(true)
+                        setUser(data['name'])
+                        setTimeout(() => {
+                            navigate('/admin')
+                        }, 3000)
                     }
                     else{
                         setNotAdmin(true)
                         setTimeout(() => {
                             setNotAdmin(false)
-                        }, 3000)
+                        }, 1000)
                         event.target.reset()
                     }
                     
@@ -73,15 +80,17 @@ function AdminSignIn() {
                     setWrongPassword(true)
                     setTimeout(() => {
                         setWrongPassword(false)
-                    }, 3000)
+                    }, 1000)
                 }
             }
         })
-        function handleLogin (){
-            window.location.href = '/admin/home'
-        }
+
         
     }
+    if (isLoggedIn){
+        navigate('/admin')
+    }
+
     return (
         <div id="signIn_form">
             {showToast ? <Toast title="Success" message="Successfully logged in"/> : null}
@@ -99,7 +108,7 @@ function AdminSignIn() {
                     top: '33.5%',
                     left: '50%',
                     transform: 'translateX(-50%)'
-                }}>** You must provide an email address **</p>}
+                }}>*You must provide an email address*</p>}
                 <input onChange = {(e) => setPassword(e.target.value)} type="password" placeholder="Password"/>
                 {passwordError && <p style={{
                     color: 'rgb(53, 2, 2)',

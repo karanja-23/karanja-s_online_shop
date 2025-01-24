@@ -12,11 +12,11 @@ const routes=[
         element:<Login/>
     },
     {
-        path:"/admin",
+        path:"/admin/auth",
         element:<AdminLogin/>
     },
     {
-        path:"/admin/home",
+        path:"/admin",
         element:<AdminHome/>
     }
 ]
