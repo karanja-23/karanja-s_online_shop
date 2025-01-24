@@ -10,7 +10,7 @@ function Nav(){
                 <img id="admin-logo-img" src={logo} alt="logo" />
             </div>
             <div id="welcome">
-            {user ? <h2 id="admin-welcome">Welcome, {user}</h2> : <h2 id="admin-welcome">Welcome, Admin</h2>}
+            {user ? <h3 id="admin-welcome">Welcome, {user}</h3> : <h3 id="admin-welcome">Welcome, Admin</h3>}
             </div>
                        
         </div>
