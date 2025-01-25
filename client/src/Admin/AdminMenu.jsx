@@ -43,7 +43,7 @@ function AdminMenu() {
                     }}>
                         <li className='item'><NavLink to="/admin/view_categories"><FontAwesomeIcon style={{marginRight: '10px'}} icon={faEye} />View Categories</NavLink></li>
                         <li className='item'><NavLink to="/admin/add_category"><FontAwesomeIcon  style={{marginRight: '10px'}} icon={faPlus} />Add Categories</NavLink></li>
-                        <li className='item'><FontAwesomeIcon icon={faFilePen} />Edit Categories</li>
+                        <li className='item'><NavLink to="/admin/update_categories"><FontAwesomeIcon style={{marginRight: '10px'}} icon={faFilePen} />Edit Categories</NavLink></li>
                         <li className='item'><NavLink to="/admin/delete_categories"><FontAwesomeIcon style={{marginRight: '10px'}} icon={faTrash} />Delete Categories</NavLink></li>
                     </ul>
                 </li>

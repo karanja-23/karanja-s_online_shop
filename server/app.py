@@ -77,14 +77,30 @@ def get_categories():
         )
         return response        
    
-@app.route('/category/<int:id>', methods=['GET','DELETE'])
+@app.route('/category/<int:id>', methods=['GET','DELETE','PATCH'])
 def delete(id):
-    to_be_deleted = Categories.query.filter_by(id=id).first()      
-    db.session.delete(to_be_deleted)
-    db.session.commit()
+    if request.method == 'DELETE':
+        to_be_deleted = Categories.query.filter_by(id=id).first()      
+        db.session.delete(to_be_deleted)
+        db.session.commit()
     
-    return jsonify({ f"message": f"{to_be_deleted.name} deleted succesfully"})
+        return jsonify({ f"message": f"{to_be_deleted.name} deleted succesfully"})     
+    if request.method == 'PATCH':
+        category = Categories.query.filter_by(id =id).first()
+        for attr in request.json:
+            setattr(category, attr, request.json.get(attr))
+        db.session.add(category)
+        db.session.commit()
+        
+        category_dict = category.to_dict()
+        response = make_response(
+            category_dict,
+            200,
+            {'Content-Type': 'application/json'}
+        )
+        return response
 
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5555,debug=True)
+   

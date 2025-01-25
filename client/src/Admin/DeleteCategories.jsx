@@ -49,7 +49,7 @@ function DeleteCategories(){
             <Nav/>
             <AdminMenu/>
             <div id="admin-content">
-            <h1>Existing categories</h1>
+            <h1>Delete categories</h1>
             <div id="categories_container">
                 {categories ? (
                         categories.map((category,index) =>{
