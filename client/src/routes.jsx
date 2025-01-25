@@ -6,6 +6,8 @@ import ViewProducts from "./Admin/ViewProducts"
 import AddProducts from "./Admin/AddProducts"
 import AddCategories from "./Admin/AddCategories"
 import ViewCategories from "./Admin/ViewCategories"
+import DeleteCategories from "./Admin/DeleteCategories"
+import UpdateCategories from "./Admin/UpdateCategories"
 const routes=[
     {
         path:"/",
@@ -39,6 +41,15 @@ const routes=[
     {
         path: "/admin/view_categories",
         element: <ViewCategories />
+    },
+    {
+        path: '/admin/delete_categories',
+        element: <DeleteCategories />
+
+    },
+    {
+        path: '/admin/update_categories',
+        element: <UpdateCategories />
     }
 ]
 

@@ -60,11 +60,47 @@ def add_category():
         db.session.add(new_category)
         db.session.commit()
         return jsonify({"message": "Categoryadded succesfully"}, 200)
-        
-        
-        
 
+@app.route('/categories', methods= ['GET'])
+def get_categories():
+    
+    if request.method == 'GET':
+        categories_to_dict = []
+        for category in Categories.query.all():
+        
+            categories_to_dict.append(category.to_dict())
+    
+        response = make_response(
+            jsonify(categories_to_dict),
+            200,
+            {'Content-Type':'application/json'}
+        )
+        return response        
+   
+@app.route('/category/<int:id>', methods=['GET','DELETE','PATCH'])
+def delete(id):
+    if request.method == 'DELETE':
+        to_be_deleted = Categories.query.filter_by(id=id).first()      
+        db.session.delete(to_be_deleted)
+        db.session.commit()
+    
+        return jsonify({ f"message": f"{to_be_deleted.name} deleted succesfully"})     
+    if request.method == 'PATCH':
+        category = Categories.query.filter_by(id =id).first()
+        for attr in request.json:
+            setattr(category, attr, request.json.get(attr))
+        db.session.add(category)
+        db.session.commit()
+        
+        category_dict = category.to_dict()
+        response = make_response(
+            category_dict,
+            200,
+            {'Content-Type': 'application/json'}
+        )
+        return response
 
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5555,debug=True)
+   
