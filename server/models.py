@@ -26,21 +26,30 @@ class Product(db.Model):
     price=db.Column(db.Integer, nullable=False)
     description=db.Column(db.String(255), nullable=False)
     image=db.Column(db.LargeBinary, nullable=False)
+    status=db.Column(db.String(255), default='active')
     
     categories_id=db.Column(db.Integer, db.ForeignKey('categories.id'))
-    import base64
+    category = db.relationship('Categories', backref='products')
+    
     
     def to_dict(self):
         image = self.image
         if image:
             image = base64.b64encode(image).decode('utf-8')
+        category_data = {
+            'id': self.category.id if self.category else None,
+            'name': self.category.name if self.category else None
+        }
+        
         return {
             'id': self.id,
             'name': self.name,
             'price': self.price,
             'description': self.description,
             'image': image,
-            'categories_id': self.categories_id
+            'categories_id': self.categories_id,
+            'status': self.status,
+            'category': category_data
         }  
     
 class Categories(db.Model, SerializerMixin):

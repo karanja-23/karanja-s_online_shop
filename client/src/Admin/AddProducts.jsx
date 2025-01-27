@@ -1,19 +1,74 @@
 import Nav from "./AdminNavBar"
 import AdminMenu from "./AdminMenu"
-import { useState } from "react"
+import { useState,useEffect } from "react"
 
 function AddProducts(){
+    const [categories, setCategories] = useState([])
+    const [productName, setProductName] = useState("")
+    const [category, setCategory] = useState("")
+    const [price, setPrice] = useState("")
+    const [description, setDescription] = useState("")
+    const [image, setImage] = useState("")
+    useEffect(()=>{
+        fetch('http://localhost:5555/categories')
+        .then(response => response.json())
+        .then(data => setCategories(data))
+    },[])
+    function handleImageChange(event){
+        const file = event.target.files[0]
+        const reader = new FileReader()
+        reader.onload = (event) => {
+            setImage(`data:image/jpeg;base64,${event.target.result}`);
+        }
+        reader.readAsDataURL(file)
+    }
     
-
+    function handleSubmit(event){
+        event.preventDefault()
+        const new_product = {
+            name: productName,
+            categories_id: category,
+            price: price,
+            description: description,
+            image: image
+        }
+        fetch(`http://localhost:5555/products`,{
+            method : 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(new_product) 
+                       
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        event.target.reset()
+        console.log(image)
+    }
     return(
         <div>
             <Nav/>
             <AdminMenu/>
             <div id="admin-content">
                 <h1>Add a new product</h1>
-               <form>
-
-
+               <form onSubmit={handleSubmit} id="add-product-form">
+                <div id="add-product-field-container">
+                    <input onChange={(e) => setProductName(e.target.value)} id="add-product-field" type="text" placeholder="enter product name"></input>
+                    <select onChange={(e) => setCategory(e.target.value)} id="add-category-field">
+                        <option>select category</option>
+                        {categories.map(category => <option value={category.id}>{category.name}</option>)}  
+                    </select>
+                </div>
+                <div id="add-image-field-container">
+                    <input onChange={handleImageChange} id="add-image-field" type="file" placeholder="enter product name"></input>
+                    <input onChange={(e) => setPrice(e.target.value)} id="add-price" type="number" placeholder="enter product price"></input>
+                </div>
+                <div>
+                    <textarea onChange={(e) => setDescription(e.target.value)} id="add-description-textarea" placeholder="enter product description"></textarea>
+                </div>
+                <input id="add-product-btn" type="submit" value="add product"></input>
+                              
+                          
                </form>
             </div>
             
