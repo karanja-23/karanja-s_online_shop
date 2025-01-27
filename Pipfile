@@ -11,6 +11,7 @@ python-dotenv = "*"
 sqlalchemy-serializer = "*"
 psycopg2-binary = "*"
 flask-cors = "*"
+bcrypt = "*"
 
 [dev-packages]
 

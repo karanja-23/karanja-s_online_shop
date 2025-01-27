@@ -1,7 +1,7 @@
 import Nav from "./AdminNavBar"
 import AdminMenu from "./AdminMenu"
 import { useEffect, useState } from "react"
-import ProductCard from "./ProductCards"
+
 
 function ViewProducts(){
     const [products, setProducts] = useState([])
@@ -9,7 +9,7 @@ function ViewProducts(){
         fetch('http://localhost:5555/products')
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            
             setProducts(data)
         })
     })
@@ -19,13 +19,19 @@ function ViewProducts(){
             <AdminMenu/>
             <div id="admin-content">
                 <h1>View Products</h1> 
-                {products ? products.map(product => {
+                <div id="product-container">
+                {products ? products.map((product, index) => {
                     return(
-                     <ProductCard name={product.name} price={product.price} description={product.description} image={product.image} /> 
+                     <div id="product-card"> 
+                        <span> {index +1}. {product.name}</span>
+                        <div id="status">{product.status}</div>
+                        <span>{product.category['name']}</span>
+                     </div>
                     )
 
                 }) : <h1>Loading...</h1>
-                }              
+                } 
+                </div>             
             </div>
             
             

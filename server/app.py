@@ -3,7 +3,7 @@ from flask_cors import CORS
 from models import db, User,Product,Categories
 from flask_migrate import Migrate
 from dotenv import load_dotenv
-
+import base64
 import os
 load_dotenv()
 
@@ -36,17 +36,32 @@ def get_user(email):
     else:
         return jsonify({'message': 'Username does not exist'})  
 
-@app.route('/products', methods=['GET'])
+@app.route('/products', methods=['GET','POST'])
 def get_products():
-    products = Product.query.all()
+    if request.method == 'GET':
+       products = Product.query.all()
     
-    response_body =  [product.to_dict() for product in products]
-    response = make_response(
-        jsonify(response_body),
-        200,
-        {'Content-Type': 'application/json'}
-    )
-    return response
+       response_body =  [product.to_dict() for product in products]
+       response = make_response(
+            jsonify(response_body),
+            200,
+            {'Content-Type': 'application/json'}
+       )
+       return response 
+    if request.method == 'POST':
+        image = request.json.get('image')
+        image_binary = base64.b64decode(image + '===')
+        
+        new_product = Product(
+            name=request.json.get('name'),
+            price=request.json.get('price'),
+            description=request.json.get('description'),
+            image=image_binary,
+            categories_id=request.json.get('categories_id')
+        )
+        db.session.add(new_product)
+        db.session.commit()
+        return jsonify({'message':'Product added succesfully'}),201
 @app.route('/category', methods=['GET','POST'])
 def add_category():
     new_name =request.json.get('name')
