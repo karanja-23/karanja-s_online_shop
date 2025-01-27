@@ -2,6 +2,7 @@ import NavBar from "../Components/NavBar"
 import SignIn from "../Components/SignIn"
 import SignUp from "../Components/SignUp" 
 import { useState, useEffect } from "react"
+import Footer from "../Components/Footer"
 
 function Login(){
     const [isSignUp, setIsSignUp] = useState(false)
@@ -37,7 +38,10 @@ function Login(){
 
 
                 </div>
-
+                
+            </div>
+            <div id="empty">
+                <Footer />
             </div>
             
         </div>

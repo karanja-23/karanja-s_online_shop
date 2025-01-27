@@ -10,9 +10,11 @@ function NavBar(){
         <div id="navigation"> 
             <Sticker />
             <div id="logoStrip">
+                <NavLink to="/">
                 <div id="logo">
                     <img id="logo-img" src={logo} alt="logo" />
-                </div>
+                </div>        
+                </NavLink>
                 <div id="searchBar">
                     <FontAwesomeIcon style={{
                         position: 'absolute',
