@@ -6,7 +6,8 @@ import delivery from "../assets/delivery.png"
 import quality from "../assets/quality.png"
 import prices from "../assets/prices.png"
 import service from "../assets/service.png"
-import { faCheck } from "@fortawesome/free-solid-svg-icons"
+import { faCheck,faArrowRightLong } from "@fortawesome/free-solid-svg-icons"
+import partner from "../assets/team.png"
 function Home(){
     return(
         <div className="main">
@@ -83,6 +84,17 @@ function Home(){
 
             </div>
             <div id="sell-with-us">
+                <div id="sell-with-us-image">
+                    <img src={partner} alt="team" />
+                </div>
+                <div id="sell-with-us-text">
+                    <span id="sell-heading">Partner with us</span>
+                    <span id="sell-content">Sell with us and reach a global audience! Our e-commerce platform makes it easy to list and sell your products, with competitive fees and flexible payment options. Sign up now and start growing your business!</span>
+                    <span > contact us <FontAwesomeIcon style={{marginLeft: "10px"}} icon={faArrowRightLong} /> </span>
+                </div>
+
+            </div>
+            <div id="testimonials">
 
             </div>
             
