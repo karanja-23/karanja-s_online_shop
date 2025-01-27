@@ -8,6 +8,8 @@ import prices from "../assets/prices.png"
 import service from "../assets/service.png"
 import { faCheck,faArrowRightLong } from "@fortawesome/free-solid-svg-icons"
 import partner from "../assets/team.png"
+import Textimonials from "../Components/TestimonialsCard"
+import Footer from "../Components/Footer"
 function Home(){
     return(
         <div className="main">
@@ -84,20 +86,30 @@ function Home(){
 
             </div>
             <div id="sell-with-us">
-                <div id="sell-with-us-image">
-                    <img src={partner} alt="team" />
-                </div>
+
                 <div id="sell-with-us-text">
                     <span id="sell-heading">Partner with us</span>
                     <span id="sell-content">Sell with us and reach a global audience! Our e-commerce platform makes it easy to list and sell your products, with competitive fees and flexible payment options. Sign up now and start growing your business!</span>
                     <span > contact us <FontAwesomeIcon style={{marginLeft: "10px"}} icon={faArrowRightLong} /> </span>
                 </div>
+                <div id="sell-with-us-image">
+                    <img src={partner} alt="team" />
+                </div>
 
             </div>
             <div id="testimonials">
-
+                <span id="testimonials-heading">Testimonials</span>
+                <div style={{display: "flex", gap: "30px", flexWrap:"wrap", justifyContent: "center"}}>
+                    <Textimonials customer="Emily Karanja" content="I've been using this app for a few months now and I'm absolutely loving it! The products are always delivered on time and the customer service is top-notch. I've already recommended it to all my friends and family!"/>
+                    <Textimonials customer="Henry Olelempaka" content="I was a bit skeptical about shopping online, but this app has completely changed my mind. The products are high-quality, the prices are competitive, and the shipping is fast. I've already made several purchases and I'm always happy with the results!" />
+                    <Textimonials customer ="Felix Mumbai" content ="I accidentally ordered the wrong size, but the return process was so easy and hassle-free. The customer service team was very helpful and responsive. I'm definitely going to continue shopping with this app!" />
+                    <Textimonials customer = "Christine Wambua" content="I love that this app has such a wide selection of products. I can always find what I'm looking for, and the prices are always competitive. The app is also very user-friendly and easy to navigate." />
+                    <Textimonials customer="Jane Njagi" content="I was amazed at how quickly my order arrived. I placed the order on a Monday and it was delivered by Wednesday. The shipping is so fast and reliable. I'm definitely going to continue shopping with this app!" />
+                    <Textimonials customer="Erick Mwagangi" content="I've been impressed with the high-quality of the products I've received from this app. The materials are always top-notch and the products are well-made. I'm definitely going to continue shopping with this app!" />
+                </div>
+                <Footer />
             </div>
-            
+                        
         </div>
     )
 }
