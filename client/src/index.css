@@ -171,7 +171,16 @@ body{
     text-decoration: underline;
 
 }
+#menuItems a{
+    text-decoration: none;
+    color: rgb(15, 23, 66);
 
+}
+#menuItems .active{
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+}
 #register form{
     width: 100%;
     display: flex;
@@ -838,7 +847,21 @@ input:focus, textarea:focus {
     flex-direction: column;
     gap: 10px;
 }
-
+#careers{
+    position: absolute;
+    top: 200px;
+    left: 0;
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#careers span{
+    font-size: 1.9em;
+    font-weight: 700;
+    color: rgb(4, 4, 48);
+}
 
 
 

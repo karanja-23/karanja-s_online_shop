@@ -8,6 +8,7 @@ import AddCategories from "./Admin/AddCategories"
 import ViewCategories from "./Admin/ViewCategories"
 import DeleteCategories from "./Admin/DeleteCategories"
 import UpdateCategories from "./Admin/UpdateCategories"
+import Careers from "./Pages/Careers"
 const routes=[
     {
         path:"/",
@@ -50,6 +51,10 @@ const routes=[
     {
         path: '/admin/update_categories',
         element: <UpdateCategories />
+    },
+    {
+        path: '/careers',
+        element: <Careers />
     }
 ]
 
