@@ -6,13 +6,18 @@ import { useEffect, useState } from "react"
 function ViewProducts(){
     const [products, setProducts] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5555/products')
+        fetch('http://localhost:5555/product',{
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        })
         .then(response => response.json())
         .then(data => {
             
             setProducts(data)
         })
-    })
+    }, [])
     return(
         <div>
             <Nav/>
@@ -31,6 +36,7 @@ function ViewProducts(){
 
                 }) : <h1>Loading...</h1>
                 } 
+
                 </div>             
             </div>
             

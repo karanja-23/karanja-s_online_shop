@@ -34,23 +34,25 @@ class Product(db.Model):
     
     def to_dict(self):
         image = self.image
+
         if image:
-            image = base64.b64encode(image).decode('utf-8')
-        category_data = {
+          image = base64.b64encode(image).decode('utf-8')  # Ensure the image is Base64 encoded
+
+          category_data = {
             'id': self.category.id if self.category else None,
             'name': self.category.name if self.category else None
         }
-        
+
         return {
             'id': self.id,
             'name': self.name,
             'price': self.price,
             'description': self.description,
-            'image': image,
+            'image': f"data:image/jpeg;base64,{image}" if image else None,  # Format as base64 image
             'categories_id': self.categories_id,
             'status': self.status,
             'category': category_data
-        }  
+    }
     
 class Categories(db.Model, SerializerMixin):
     

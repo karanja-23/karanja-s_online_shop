@@ -36,7 +36,7 @@ def get_user(email):
     else:
         return jsonify({'message': 'Username does not exist'})  
 
-@app.route('/products', methods=['GET','POST'])
+@app.route('/product', methods=['GET'])
 def get_products():
     if request.method == 'GET':
        products = Product.query.all()
@@ -48,20 +48,31 @@ def get_products():
             {'Content-Type': 'application/json'}
        )
        return response 
-    if request.method == 'POST':
-        image = request.json.get('image')
-        image_binary = base64.b64decode(image + '===')
-        
+@app.route('/products', methods=['POST'])
+def add_product():
+    # Check if the form contains a file
+    if 'image' not in request.files:
+        return jsonify({'message': 'No image file provided'}), 400
+
+    image_file = request.files['image']
+
+    if image_file:
+        image_binary = image_file.read()  # Read the image file binary data
+
         new_product = Product(
-            name=request.json.get('name'),
-            price=request.json.get('price'),
-            description=request.json.get('description'),
-            image=image_binary,
-            categories_id=request.json.get('categories_id')
+            name=request.form.get('name'),
+            price=request.form.get('price'),
+            description=request.form.get('description'),
+            image=image_binary,  # Store image binary data
+            categories_id=request.form.get('categories_id')
         )
+        
         db.session.add(new_product)
         db.session.commit()
-        return jsonify({'message':'Product added succesfully'}),201
+        
+        return jsonify({'message': 'Product added successfully'}), 201
+
+    return jsonify({'message': 'Image file is missing'}), 400
 @app.route('/category', methods=['GET','POST'])
 def add_category():
     new_name =request.json.get('name')

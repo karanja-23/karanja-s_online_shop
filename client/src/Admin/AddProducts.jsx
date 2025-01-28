@@ -8,43 +8,37 @@ function AddProducts(){
     const [category, setCategory] = useState("")
     const [price, setPrice] = useState("")
     const [description, setDescription] = useState("")
-    const [image, setImage] = useState("")
+    const [image, setImage] = useState(null)
+
     useEffect(()=>{
         fetch('http://localhost:5555/categories')
         .then(response => response.json())
         .then(data => setCategories(data))
     },[])
-    function handleImageChange(event){
-        const file = event.target.files[0]
-        const reader = new FileReader()
-        reader.onload = (event) => {
-            setImage(`data:image/jpeg;base64,${event.target.result}`);
-        }
-        reader.readAsDataURL(file)
-    }
+
     
     function handleSubmit(event){
         event.preventDefault()
-        const new_product = {
-            name: productName,
-            categories_id: category,
-            price: price,
-            description: description,
-            image: image
-        }
+        const formData = new FormData()
+        formData.append('name', productName)
+        formData.append('categories_id', category)
+        formData.append('price', price)
+        formData.append('description', description)
+        formData.append('image', image)
+
         fetch(`http://localhost:5555/products`,{
             method : 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(new_product) 
-                       
+            body: formData
         })
         .then(response => response.json())
         .then(data => console.log(data))
         event.target.reset()
-        console.log(image)
     }
+
+    function handleImageChange(event){
+        setImage(event.target.files[0])
+    }
+
     return(
         <div>
             <Nav/>
@@ -77,4 +71,3 @@ function AddProducts(){
 }
 
 export default AddProducts
-
