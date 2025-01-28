@@ -884,14 +884,15 @@ input:focus, textarea:focus {
     height: fit-content;
     display: flex;
     flex-wrap: wrap;
+    padding-bottom: 30px;
 }
 #product-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 300px;
-  height: 400px;
+  width: 250px;
+  height: 350px;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -904,21 +905,21 @@ input:focus, textarea:focus {
 
 #product-card img {
   
-  height: 170px;
-  max-width: 290px;
+  height: 140px;
+  max-width: 235px;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
 }
 
 #product-card h2 {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 15px;
   margin-top: 10px;
   color: #333;
 }
 
 #product-card p {
-  font-size: 14px;
+  font-size: 19px;
   color: #666;
   margin-bottom: 20px;
 }
@@ -931,14 +932,14 @@ input:focus, textarea:focus {
 }
 
 #product-card .add-to-cart {
-  background-color: maroon;
+  background: linear-gradient(to right, rgb(4, 4, 48), rgb(70, 2, 2));
   color: #fff;
   padding: 7px 15px;
   border: none;
-  border-radius: 5px;
+ 
   cursor: pointer;
 }
-.add-to-cart a{
+#product-card a{
     text-decoration: none;
 }
 #product-card .add-to-cart:hover {
@@ -1008,6 +1009,40 @@ input:focus, textarea:focus {
 #current-product-card .add-to-cart:hover {
     background-color: maroon;
 }
+#pagination{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+}
+#pagination button{
+    background-color: rgb(4, 4, 48);
+    color: aliceblue;
+    font-size: 1.1em;
+    padding: 5px 10px;
+    width: 90px;
+    border: none;
+    font-weight: 600;
+}
+#loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(235, 228, 228);
+    color: rgb(4, 4, 48);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+
 
 
 @media only screen and (max-width: 1170px) {
