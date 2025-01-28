@@ -62,7 +62,7 @@ function NavBar(){
                      <li><FontAwesomeIcon icon={faBars} /> Categories</li>
                      <li>About us</li>
                      <li><NavLink to="/careers">Careers</NavLink></li>
-                    <li>Contact</li>
+                     <li><NavLink to="/contact">Contact</NavLink></li>
                 </ul>
 
                 <div id="faq">                    

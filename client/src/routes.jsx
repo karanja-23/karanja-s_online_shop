@@ -9,6 +9,7 @@ import ViewCategories from "./Admin/ViewCategories"
 import DeleteCategories from "./Admin/DeleteCategories"
 import UpdateCategories from "./Admin/UpdateCategories"
 import Careers from "./Pages/Careers"
+import Contact from "./Pages/Contact"
 const routes=[
     {
         path:"/",
@@ -55,6 +56,10 @@ const routes=[
     {
         path: '/careers',
         element: <Careers />
+    },
+    {
+        path: '/contact',
+        element: <Contact />
     }
 ]
 
