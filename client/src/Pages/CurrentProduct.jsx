@@ -1,8 +1,9 @@
 import NavBar from "../Components/NavBar"
 import { useContext } from "react"
 import Footer from "../Components/Footer"
+
 import { ProductContext } from "../Components/ProductContext"
-import ProductCard from "../Components/ProductCard"
+import CurrentProductCard from "../Components/CurrentProductCard"
 function CurrentcurrentProduct(){
     const {currentProduct } =useContext(ProductContext)
     console.log(currentProduct)
@@ -10,7 +11,7 @@ function CurrentcurrentProduct(){
         <div className="main">
             <NavBar/>
             <div id="current-product">
-                <ProductCard image={currentProduct.image} name={currentProduct.name} description={currentProduct.description} price={currentProduct.price} />
+                <CurrentProductCard image={currentProduct.image} name={currentProduct.name} description={currentProduct.description} price={currentProduct.price} />
                 
             </div>
 

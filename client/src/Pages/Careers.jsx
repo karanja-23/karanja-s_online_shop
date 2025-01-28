@@ -8,12 +8,12 @@ function Careers(){
         <div className="main">
             <NavBar/>
             <div id="careers">
-                <span>There are no open positions at the momentss</span>
+                <span>There are no open positions at the moment</span>
             </div>
 
-            <div id="empty">
+        
                 <Footer />
-            </div>
+           
             
         </div>
     )
