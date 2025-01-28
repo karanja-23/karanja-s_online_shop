@@ -125,7 +125,13 @@ body{
     width: 100vw;
     height: 70px;
 }
-
+#empty-product{
+    position: absolute;
+    background-color: aliceblue;
+    top:850px;
+    width: 100vw;
+    height: 70px;
+}
 #signup-signin{
     display: flex;
     width: 100%;
@@ -862,8 +868,84 @@ input:focus, textarea:focus {
     font-weight: 700;
     color: rgb(4, 4, 48);
 }
+#faq a{
+    text-decoration: none;
+    color: rgb(4, 4, 48);
+}
+#faq .active{
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+#products-container{
+    position: absolute;
+    top: 200px;
+    width: 100vw;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+}
+#product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  position: relative;
+  box-sizing: border-box;
+}
 
+#product-card img {
+  
+  height: 170px;
+  max-width: 290px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
 
+#product-card h2 {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+  color: #333;
+}
+
+#product-card p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+#product-card .price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#product-card .add-to-cart {
+  background-color: maroon;
+  color: #fff;
+  padding: 7px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#product-card .add-to-cart:hover {
+  background-color: #3e8e41;
+}
+#current-product{
+    position: absolute;
+    top: 200px;    
+    
+}
 
 
 

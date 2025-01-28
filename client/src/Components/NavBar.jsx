@@ -66,7 +66,7 @@ function NavBar(){
                 </ul>
 
                 <div id="faq">                    
-                    <span>Products</span>
+                    <span><NavLink to="/products">Products</NavLink></span>
                     <span>FAQ</span>
                 </div>
 
