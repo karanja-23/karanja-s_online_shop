@@ -132,6 +132,7 @@ body{
     width: 100vw;
     height: 70px;
 }
+
 #signup-signin{
     display: flex;
     width: 100%;
@@ -855,10 +856,10 @@ input:focus, textarea:focus {
 }
 #careers{
     position: absolute;
-    top: 200px;
+    top: 300px;
     left: 0;
     width: 100vw;
-    height: 80vh;
+    height: 30vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -937,18 +938,76 @@ input:focus, textarea:focus {
   border-radius: 5px;
   cursor: pointer;
 }
-
+.add-to-cart a{
+    text-decoration: none;
+}
 #product-card .add-to-cart:hover {
-  background-color: #3e8e41;
+  background-color: rgb(4, 4, 48)
 }
 #current-product{
     position: absolute;
-    top: 200px;    
+    top: 220px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70vw;     
+    height: 50vh;  
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+   
     
 }
+#product-details{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+#product-details h2{
+    font-size: 2.1em;
+    color : rgb(4, 4, 48);
+}
+#product-details p{
+    min-height: 70px;
+    color: #666;
+}
+#current-product-card{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
 
-
-
+#current-product-card img{   
+    max-height: 90%;
+    max-width: 100%;
+}
+#current-product-card .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 2ss0px;
+}
+#current-product-card .add-to-cart {
+    background-color: maroon;
+    color: #e4dfdf;
+    width: 30%;
+    margin-top: 20px;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 900;
+  }
+#current-product-card .add-to-cart:hover {
+    background-color: maroon;
+}
 
 
 @media only screen and (max-width: 1170px) {
@@ -989,5 +1048,12 @@ input:focus, textarea:focus {
     }
     #why-shop{
         width: 100%;
+    }
+    #current-product{
+        width: 90%;
+    }
+    #current-product-card img{ 
+        max-width: 100%;
+        max-height: 100%;
     }
 }

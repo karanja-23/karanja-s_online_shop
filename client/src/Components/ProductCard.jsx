@@ -20,7 +20,6 @@ function ProductCard(props) {
         <div id="product-card">
             <img src={props.image} alt="product" />
             <h2>{props.name}</h2>
-            <p>{props.description}</p>
             <span className="price">Ksh. {props.price}</span>
             <NavLink to="/product"><div onClick={() => handleClick()} className="add-to-cart">View details</div></NavLink>
 

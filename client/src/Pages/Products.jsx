@@ -22,9 +22,9 @@ function Products(){
         <div className="main">
             <NavBar />
             <div  id="products-container">
-                {products ? products.map((product) =>{
+                {products ? products.map((product,index) =>{
                     
-                    return <ProductCard image={product.image} name={product.name} description={product.description} price={product.price} product={product}/>
+                    return <ProductCard  key={index} image={product.image} name={product.name} description={product.description} price={product.price} product={product}/>
                 }) : <h1></h1>}
                 
             </div>
