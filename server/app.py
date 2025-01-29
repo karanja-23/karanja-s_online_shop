@@ -73,7 +73,7 @@ def add_product():
         return jsonify({'message': 'Product added successfully'}), 201
 
     return jsonify({'message': 'Image file is missing'}), 400
-@app.route('/category', methods=['GET','POST'])
+@app.route('/category', methods=['POST'])
 def add_category():
     new_name =request.json.get('name')
     new_category = Categories(
@@ -102,7 +102,18 @@ def get_categories():
             {'Content-Type':'application/json'}
         )
         return response        
-   
+@app.route('/select/category/<int:id>', methods=['GET'])
+def get_products_by_id(id):
+    filtered_products =[]
+    for product in Product.query.filter(Product.categories_id ==id).all():
+        filtered_products.append(product.to_dict())
+        
+    response = make_response(
+        filtered_products,
+        200,
+        {'Content-Type':'application/json'}
+    )
+    return response
 @app.route('/category/<int:id>', methods=['GET','DELETE','PATCH'])
 def delete(id):
     if request.method == 'DELETE':
