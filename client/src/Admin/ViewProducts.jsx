@@ -1,6 +1,7 @@
 import Nav from "./AdminNavBar"
 import AdminMenu from "./AdminMenu"
 import { useEffect, useState } from "react"
+import Loading from "../Components/Loading"
 
 
 function ViewProducts(){
@@ -25,16 +26,16 @@ function ViewProducts(){
             <div id="admin-content">
                 <h1>View Products</h1> 
                 <div id="product-container">
-                {products ? products.map((product, index) => {
+                {products && products.length > 0 ? products.map((product, index) => {
                     return(
-                     <div id="product-card"> 
+                     <div id="productz-card"> 
                         <span> {index +1}. {product.name}</span>
                         <div id="status">{product.status}</div>
                         <span>{product.category['name']}</span>
                      </div>
                     )
 
-                }) : <h1>Loading...</h1>
+                }) : <Loading />
                 } 
 
                 </div>             

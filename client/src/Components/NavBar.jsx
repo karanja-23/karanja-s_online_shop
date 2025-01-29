@@ -5,7 +5,76 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from "react-router-dom"
+import { useState, useEffect, useContext, useRef } from "react"
+import { ProductContext } from "./ProductContext"
+import NavSearch from "./NavSearch"
+
 function NavBar(){
+    const [isSearching, setIsSearching] = useState('')
+    const navSearchRef = useRef(null)
+    const [showNavSearch, setShowNavSearch] = useState(false)
+    const {theSearchedProduct, setTheSearchedProduct} = useContext(ProductContext)
+
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+          fetch('http://localhost:5555/product', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(res => res.json())
+          .then(data => {
+            const searchedProduct = data.filter((product) => product.name.toLowerCase().includes(isSearching.toLowerCase()));
+            
+            setTheSearchedProduct(searchedProduct)
+          });
+        }, 100);
+       
+        return () => clearTimeout(timeoutId);
+        
+      }, [isSearching]);
+
+      useEffect (() =>{
+        const handleOutsideClick = (event) => {
+            if (navSearchRef.current && !navSearchRef.current.contains(event.target)) {
+              // Hide the NavSearch component when clicking outside of it
+              setShowNavSearch(false);
+            }
+          };
+          document.addEventListener("mousedown", handleOutsideClick);
+          return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+          };
+      }, [navSearchRef])
+
+    const handleSearchInput = (e) => {
+        setIsSearching(e.target.value);
+        if(e.target.value !== '') {
+            setShowNavSearch(true);
+        } else {
+            setShowNavSearch(false);
+        }
+    }
+    function handleSubmit(event){
+        event.preventDefault();
+        fetch('http://localhost:5555/product',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data =>{
+            data.forEach((product) => {
+                if (theSearchedProduct.some((searchedProduct) => product.name.toLowerCase().includes(searchedProduct.toLowerCase()))) {
+                    console.log(product.name);
+                }
+            })
+        } )
+    }
+
     return(
         <div id="navigation"> 
             <Sticker />
@@ -20,8 +89,8 @@ function NavBar(){
                         position: 'absolute',
                         left: '30px',
                     }} icon={faMagnifyingGlass} />
-                    <form>
-                        <input id="search-input" type="text" placeholder="Search..."/>
+                    <form onSubmit={handleSubmit}>
+                        <input onChange={handleSearchInput} id="search-input" type="text" placeholder="Search..."/>
                         <input style={{
                             position: 'absolute',
                             right: '0px',
@@ -32,6 +101,7 @@ function NavBar(){
                             fontWeight: '700'
                         }} type="submit" value="Search"/>
                     </form>
+                    {showNavSearch && isSearching ? <div ref={navSearchRef}><NavSearch /> </div>: null}
 
                 </div>
                 <div id="cart">
@@ -69,6 +139,8 @@ function NavBar(){
                     <span><NavLink to="/products">Products</NavLink></span>
                     <span>FAQ</span>
                 </div>
+
+
 
             </div>
 
