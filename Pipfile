@@ -12,6 +12,7 @@ sqlalchemy-serializer = "*"
 psycopg2-binary = "*"
 flask-cors = "*"
 bcrypt = "*"
+flask-jwt-extended = "*"
 
 [dev-packages]
 

@@ -19,6 +19,10 @@ function SignIn() {
         
     },[emailError, passwordError,email, password])
     function handleSubmit(event){
+        const loginCredentials = {
+            email,
+            password
+        }
         event.preventDefault();
         if (email == ''){
             setEmailError(true)
@@ -28,34 +32,25 @@ function SignIn() {
             setPasswordError(true)
             return;
         }
-        fetch(`http://localhost:5555/user/${email}`,{
-            method: 'GET',
+        fetch(`http://localhost:5555/login`,{
+            method: 'POST',
             headers: {
                 'Content-Type':'application/json'
-            }
+            },
+            body: JSON.stringify(loginCredentials)
             
         })
         .then(response => response.json())
         .then(data => {
-            if ('message' in data){
-                window.alert(data['message'])
-            }
-            else{
-                if ( 'password' in data && data['password']== password){
-                    window.alert('Succesfull!')
-                    setLogin(true)
-                    navigate('/')
-
-                }
-                else{
-                    window.alert('Wrong password')
-                    console.log(data['password'], password)
-                }
+            if(data['token']){
+                localStorage.setItem('token', data['token'])
+                setLogin(true)
+                navigate('/')
             }
         })
         event.target.reset()
     }
-    return (
+    return (    
         <div id="signIn_form">
             <form onSubmit={handleSubmit} > 
                 <h1>Sign In</h1>

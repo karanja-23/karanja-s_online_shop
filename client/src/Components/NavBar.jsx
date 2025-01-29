@@ -18,7 +18,7 @@ function NavBar(){
     const [categories, setCategories] = useState(null)
     const {theSearchedProduct, setTheSearchedProduct} = useContext(ProductContext)
     const [showCategories, setShowCategories] = useState(false)
-    const {login} = useContext(ProductContext)
+    const {login, setLogin} = useContext(ProductContext)
     useEffect(() => {
         const timeoutId = setTimeout(() => {
           fetch('http://localhost:5555/product', {
@@ -92,6 +92,9 @@ function NavBar(){
         setShowCategories(!showCategories)
         
     }
+    function handleLogOut(){
+        setLogin(false)
+    }
  
     return(
         <div id="navigation"> 
@@ -142,7 +145,7 @@ function NavBar(){
                     <FontAwesomeIcon style={{
                         fontSize: '1.5em'
                     }} icon={faUser} />
-                    <NavLink className="link" to="/login">{login ? <span>logout</span>: <span>Login/Register</span> }</NavLink>
+                    <NavLink className="link" to="/login">{login ? <span onClick={handleLogOut}>logout</span>: <span>Login/Register</span> }</NavLink>
                     
                     </div>
                     <div>

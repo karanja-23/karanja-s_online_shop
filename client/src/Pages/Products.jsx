@@ -53,9 +53,19 @@ function Products(){
 
     function handleFilter(e) {
         const selectedId = e.target.value;
-        if( selectedId ===0) {
-            return
-        }
+        if (selectedId == "") {
+            fetch('http://localhost:5555/product', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+            .then(response => response.json())
+            .then(data => {
+              setProducts(data)
+              setCurrentPage(1)
+            })
+          }
         else{
             fetch (`http://localhost:5555/select/category/${selectedId}`,{
                 method: 'GET',
@@ -81,7 +91,7 @@ function Products(){
             <div  id="products-container">
                 <div id="selectCategories">
                     <select onChange={(e) => {handleFilter(e)}}>
-                        <option value={0}>Filter by category</option>
+                        <option value="">All Categories</option>
                         {categories.map((category) =>{
                            return <option value={category.id}>{category.name}</option>
                         })}

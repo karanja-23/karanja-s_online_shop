@@ -1,18 +1,24 @@
 from flask import Flask, request,jsonify,make_response
 from flask_cors import CORS
-from models import db, User,Product,Categories
+from models import db, User,Product,Categories,Cart
 from flask_migrate import Migrate
 from dotenv import load_dotenv
+from flask_jwt_extended import JWTManager,create_access_token
 import base64
 import os
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+jwt = JWTManager(app)
+app.config['JWT_SECRET_KEY'] = "Hom3work"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{os.environ['DB_USER']}:{os.environ['DB_PASSWORD']}@{os.environ['DB_HOST']}:{os.environ['DB_PORT']}/{os.environ['DB_NAME']}"
 db.init_app(app)
 migrate = Migrate(app, db)
-
+def generate_token(user):
+    access_token = create_access_token(identity=user.id)
+    return access_token
 @app.route('/user', methods=['GET','POST'])
 def add_user():
     new_user = User(
@@ -35,7 +41,15 @@ def get_user(email):
     
     else:
         return jsonify({'message': 'Username does not exist'})  
-
+@app.route('/login', methods=['POST'])
+def login():
+    email = request.json.get('email')
+    password = request.json.get('password')
+    user = User.query.filter_by(email=email).first()
+    if user and user.password == password:
+        token = generate_token(user)
+        return {'token': token}
+    return {'error': 'Invalid credentials'}, 401
 @app.route('/product', methods=['GET'])
 def get_products():
     if request.method == 'GET':
@@ -136,8 +150,19 @@ def delete(id):
             {'Content-Type': 'application/json'}
         )
         return response
-
-
+@app.route('/cart', methods=['POST','GET'])
+def add_to_cart():
+    if request.method == 'POST':
+        new_cart = Cart(
+            user_id = request.json.get('user_id'),
+            product_id = request.json.get('product_id'),
+            quantity = request.json.get('quantity'),
+            
+            
+        )
+        db.session.add(new_cart)
+        db.session.commit()
+        return jsonify({'message': 'Product added to cart successfully'}), 201
 if __name__ == '__main__':
     app.run(host='localhost', port=5555,debug=True)
    
