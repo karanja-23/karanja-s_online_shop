@@ -10,7 +10,18 @@ import { faCheck,faArrowRightLong } from "@fortawesome/free-solid-svg-icons"
 import partner from "../assets/team.png"
 import Textimonials from "../Components/TestimonialsCard"
 import Footer from "../Components/Footer"
+import { useContext,useEffect } from "react"
+import { ProductContext } from "../Components/ProductContext"
+import { useNavigate } from "react-router-dom"
 function Home(){
+    const navigate = useNavigate()
+    const{login} = useContext(ProductContext)
+
+    useEffect(() =>{
+        if (login ===false){
+            navigate ('/login')
+        }
+    },[])
     return(
         <div className="main">
             <NavBar/>

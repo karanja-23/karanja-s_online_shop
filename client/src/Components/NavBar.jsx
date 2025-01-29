@@ -8,14 +8,17 @@ import { NavLink } from "react-router-dom"
 import { useState, useEffect, useContext, useRef } from "react"
 import { ProductContext } from "./ProductContext"
 import NavSearch from "./NavSearch"
+import Loading from "../Components/Loading"
+
 
 function NavBar(){
     const [isSearching, setIsSearching] = useState('')
     const navSearchRef = useRef(null)
     const [showNavSearch, setShowNavSearch] = useState(false)
+    const [categories, setCategories] = useState(null)
     const {theSearchedProduct, setTheSearchedProduct} = useContext(ProductContext)
-
-
+    const [showCategories, setShowCategories] = useState(false)
+    const {login} = useContext(ProductContext)
     useEffect(() => {
         const timeoutId = setTimeout(() => {
           fetch('http://localhost:5555/product', {
@@ -74,17 +77,40 @@ function NavBar(){
             })
         } )
     }
-
+    useEffect(() =>{
+        fetch ('http://localhost:5555/categories', {
+            method: 'GET',
+            headers: {
+                'Content-Type':'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => setCategories(data))
+           
+    },[])
+    function handleSetCategories(){
+        setShowCategories(!showCategories)
+        
+    }
+ 
     return(
         <div id="navigation"> 
             <Sticker />
+            {showCategories && categories ? (<div id="categories">
+                {categories.map((category, index) =>{
+                    return (<span className="category-div" key={index}>{category.name}</span>)
+                            
+                })}
+
+            </div>): null}
+            { categories === null && showCategories ? <div id="categories"><Loading /></div>: null}
             <div id="logoStrip">
                 <NavLink to="/">
                 <div id="logo">
                     <img id="logo-img" src={logo} alt="logo" />
                 </div>        
                 </NavLink>
-                <div id="searchBar">
+                <div  id="searchBar">
                     <FontAwesomeIcon style={{
                         position: 'absolute',
                         left: '30px',
@@ -110,12 +136,13 @@ function NavBar(){
                         alignItems: 'center',
                         justifyContent: 'center',
                         gap: '5px',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        color : "rgb(4, 4, 48)"
                     }}>
                     <FontAwesomeIcon style={{
                         fontSize: '1.5em'
                     }} icon={faUser} />
-                    <NavLink className="link" to="/login">Login/Register</NavLink>
+                    <NavLink className="link" to="/login">{login ? <span>logout</span>: <span>Login/Register</span> }</NavLink>
                     
                     </div>
                     <div>
@@ -129,7 +156,7 @@ function NavBar(){
             <div id="menu"> 
                 <ul id="menuItems">
                     
-                     <li><FontAwesomeIcon icon={faBars} /> Categories</li>
+                     <li onClick={handleSetCategories}><FontAwesomeIcon icon={faBars} /> Categories</li>
                      <li>About us</li>
                      <li><NavLink to="/careers">Careers</NavLink></li>
                      <li><NavLink to="/contact">Contact</NavLink></li>

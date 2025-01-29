@@ -883,8 +883,10 @@ input:focus, textarea:focus {
     width: 100vw;
     height: fit-content;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     padding-bottom: 30px;
+    justify-content: center;
 }
 #product-card {
   display: flex;
@@ -1048,11 +1050,66 @@ input:focus, textarea:focus {
     border: 1px solid rgb(4, 4, 48);
     z-index: 1;
     background-color: white;
-    display: flex;
-    
+    display: flex;    
 }
-
-
+#categories{
+    position: absolute;
+    top: 195px;
+    left: 30px;
+    min-width: 200px;
+    min-height: 230px;
+    border:  2px solid rgb(163, 163, 167);
+    border-radius: 15px;
+    background-color: white;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 7px 0px;
+}
+#login-link span{
+    color: rgb(4, 4, 48);
+    font-weight: 500;
+    font-size: 1.09em;
+}
+.category-div{
+    display: flex;    
+    width: inherit;
+    padding:6px 25px ;
+    min-width: 200px;
+    box-sizing: border-box;  
+    color: rgb(66, 66, 77);  
+    font-weight: 500;
+}
+.category-div:hover{
+    background-color: rgb(4, 4, 48);
+    color:aliceblue;
+}
+#selectCategories select{
+margin: 20px;
+padding: 6px;
+font-weight: 700;
+color: rgb(4, 4, 48);
+font-size: 1.0em;
+border: none;
+background-color: transparent;
+}
+#selectCategories select:active{
+    border: none;
+}
+#selectCategories option{
+    padding: 3px;
+    color: rgb(4, 4, 48);
+    font-weight: 400;
+    font-size: 1.0em;
+}
+#my-products{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+   
+}
 
 
 
@@ -1104,5 +1161,8 @@ input:focus, textarea:focus {
     }
     #productz-card{
         width: 95%;
+    }
+    #searchBar{
+        width: 400px;
     }
 }

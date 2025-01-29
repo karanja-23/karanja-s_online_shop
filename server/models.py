@@ -29,7 +29,7 @@ class Product(db.Model):
     status=db.Column(db.String(255), default='active')
     
     categories_id=db.Column(db.Integer, db.ForeignKey('categories.id'))
-    category = db.relationship('Categories', backref='products')
+    category = db.relationship('Categories', back_populates='products')
     
     
     def to_dict(self):
@@ -60,6 +60,13 @@ class Categories(db.Model, SerializerMixin):
     
     id=db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(255), nullable=False)
+    products = db.relationship('Product', back_populates='category')
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
+  
     
 
     

@@ -1,11 +1,14 @@
-import { use } from "react";
-import { useState, useEffect } from "react";
+
+import { useState, useEffect,useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { ProductContext } from "./ProductContext";
 function SignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] =useState('')
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
-
+    const {setLogin} = useContext(ProductContext)
+    const navigate = useNavigate()
     useEffect(() => {
         if (emailError && email !== ''){
             setEmailError(false)
@@ -40,6 +43,9 @@ function SignIn() {
             else{
                 if ( 'password' in data && data['password']== password){
                     window.alert('Succesfull!')
+                    setLogin(true)
+                    navigate('/')
+
                 }
                 else{
                     window.alert('Wrong password')
