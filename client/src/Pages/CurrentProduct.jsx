@@ -6,7 +6,7 @@ import { ProductContext } from "../Components/ProductContext"
 import CurrentProductCard from "../Components/CurrentProductCard"
 function CurrentcurrentProduct(){
     const {currentProduct } =useContext(ProductContext)
-    console.log(currentProduct)
+    
     return(
         <div className="main">
             <NavBar/>

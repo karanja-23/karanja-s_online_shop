@@ -8,6 +8,7 @@ function SignIn() {
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const {setLogin} = useContext(ProductContext)
+    const {setToken,token} = useContext(ProductContext)
     const navigate = useNavigate()
     useEffect(() => {
         if (emailError && email !== ''){
@@ -43,9 +44,14 @@ function SignIn() {
         .then(response => response.json())
         .then(data => {
             if(data['token']){
+                setToken(data['token'])
+                
                 localStorage.setItem('token', data['token'])
                 setLogin(true)
                 navigate('/')
+            }
+            else{
+                window.alert(data['message'])
             }
         })
         event.target.reset()

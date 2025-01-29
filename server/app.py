@@ -3,7 +3,7 @@ from flask_cors import CORS
 from models import db, User,Product,Categories,Cart
 from flask_migrate import Migrate
 from dotenv import load_dotenv
-from flask_jwt_extended import JWTManager,create_access_token
+from flask_jwt_extended import JWTManager,create_access_token,jwt_required,get_jwt_identity
 import base64
 import os
 load_dotenv()
@@ -150,19 +150,29 @@ def delete(id):
             {'Content-Type': 'application/json'}
         )
         return response
-@app.route('/cart', methods=['POST','GET'])
+@app.route('/cart', methods=['POST'])
+@jwt_required()
 def add_to_cart():
     if request.method == 'POST':
-        new_cart = Cart(
-            user_id = request.json.get('user_id'),
-            product_id = request.json.get('product_id'),
-            quantity = request.json.get('quantity'),
-            
-            
-        )
-        db.session.add(new_cart)
-        db.session.commit()
-        return jsonify({'message': 'Product added to cart successfully'}), 201
+        user_id = get_jwt_identity()
+        product_id = request.json.get('product_id')
+        quantity = request.json.get('quantity')
+
+        
+        existing_cart = Cart.query.filter_by(user_id=user_id, product_id=product_id).first()
+        if existing_cart:
+            existing_cart.quantity += quantity
+            db.session.commit()
+            return jsonify({'message': 'Product quantity updated in cart'}), 200
+        else:
+            new_cart = Cart(
+                user_id=user_id,
+                product_id=product_id,
+                quantity=quantity
+            )
+            db.session.add(new_cart)
+            db.session.commit()
+            return jsonify({'message': 'Product added to cart successfully'}), 201
 if __name__ == '__main__':
     app.run(host='localhost', port=5555,debug=True)
    

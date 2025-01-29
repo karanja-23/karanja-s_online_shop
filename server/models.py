@@ -76,7 +76,7 @@ class Cart(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     user_id=db.Column(db.Integer, db.ForeignKey('users.id'))
     product_id=db.Column(db.Integer, db.ForeignKey('products.id'))
-    quantity=db.Column(db.Integer, nullable=False)
+    quantity=db.Column(db.Integer, nullable=False)    
     user = db.relationship('User', back_populates='cart')
     product = db.relationship('Product', back_populates='carts')
     def to_dict(self):
