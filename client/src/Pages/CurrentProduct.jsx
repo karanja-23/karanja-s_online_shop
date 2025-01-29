@@ -11,7 +11,7 @@ function CurrentcurrentProduct(){
         <div className="main">
             <NavBar/>
             <div id="current-product">
-                <CurrentProductCard image={currentProduct.image} name={currentProduct.name} description={currentProduct.description} price={currentProduct.price} />
+                <CurrentProductCard image={currentProduct.image} name={currentProduct.name} description={currentProduct.description} price={currentProduct.price} id={currentProduct.id} />
                 
             </div>
 

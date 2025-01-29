@@ -12,6 +12,7 @@ class User(db.Model, SerializerMixin):
     email=db.Column(db.String(255), nullable=False)
     password=db.Column(db.String(255), nullable=False)
     role= db.Column(db.String(255), default='user')
+    cart=db.relationship('Cart', back_populates='user')
     
 
     def __repr__(self):
@@ -30,7 +31,7 @@ class Product(db.Model):
     
     categories_id=db.Column(db.Integer, db.ForeignKey('categories.id'))
     category = db.relationship('Categories', back_populates='products')
-    
+    carts = db.relationship('Cart', back_populates='product')
     
     def to_dict(self):
         image = self.image
@@ -68,5 +69,21 @@ class Categories(db.Model, SerializerMixin):
         }
   
     
-
+class Cart(db.Model):
+    
+    __tablename__ = 'cart'
+    
+    id=db.Column(db.Integer, primary_key=True)
+    user_id=db.Column(db.Integer, db.ForeignKey('users.id'))
+    product_id=db.Column(db.Integer, db.ForeignKey('products.id'))
+    quantity=db.Column(db.Integer, nullable=False)
+    user = db.relationship('User', back_populates='cart')
+    product = db.relationship('Product', back_populates='carts')
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'product_id': self.product_id,
+            'quantity': self.quantity
+        }
     
