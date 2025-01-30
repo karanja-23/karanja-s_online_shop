@@ -77,7 +77,7 @@ function CurrentProductCard(props) {
             <div id="product-details">
                 <h2>{props.name}</h2>
                 <p>{props.description}</p>
-                <span className="price">Ksh. {props.price}</span>
+                <span className="price">Ksh. {props.price}</span> 
                 <form onSubmit={(e) => addToCart(e)}>
                 <label for="quantity">Quantity</label>                
                 <input onChange={(e) => setquantity(e.target.value)} value={quantity} id="quantity" style={{
