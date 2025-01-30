@@ -12,6 +12,7 @@ import Careers from "./Pages/Careers"
 import Contact from "./Pages/Contact"
 import Products from "./Pages/Products"
 import CurrentProduct from "./Pages/CurrentProduct"
+import Cart from "./Pages/Cart"
 const routes=[
     {
         path:"/",
@@ -70,6 +71,10 @@ const routes=[
     {
         path:'/product',
         element: < CurrentProduct />
+    },
+    {
+        path: '/cart',
+        element: <Cart />
     }
 ]
 
