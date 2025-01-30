@@ -13,7 +13,7 @@ function ProductCard(props) {
           };
         
         setcurrentProduct(product)
-        console.log(currentProduct)
+        
 
         
     }

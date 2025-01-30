@@ -173,6 +173,13 @@ def add_to_cart():
             db.session.add(new_cart)
             db.session.commit()
             return jsonify({'message': 'Product added to cart successfully'}), 201
+@app.route('/getcart', methods=['GET'])
+@jwt_required()
+def get_cart():
+    user_id = get_jwt_identity()
+    cart_items = Cart.query.filter_by(user_id=user_id).all()
+    cart_items_dict = [item.to_dict() for item in cart_items]
+    return jsonify(cart_items_dict), 200
 if __name__ == '__main__':
     app.run(host='localhost', port=5555,debug=True)
    
