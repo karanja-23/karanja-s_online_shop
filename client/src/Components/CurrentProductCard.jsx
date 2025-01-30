@@ -47,7 +47,7 @@ function CurrentProductCard(props) {
             if (data['message'] =='Product quantity updated in cart'){
                 setupdatedCart(true)
                 setTimeout(() => {
-                    setUserCart(data)
+                    
                     setupdatedCart(false)
                 }, 1050)
                 fetch('http://localhost:5555/getcart', {
@@ -78,7 +78,7 @@ function CurrentProductCard(props) {
                 <h2>{props.name}</h2>
                 <p>{props.description}</p>
                 <span className="price">Ksh. {props.price}</span>
-                <form onSubmit={(e) => addToCart(e)}>
+                <form style={{display: "flex", flexDirection: "column"}} onSubmit={(e) => addToCart(e)}>
                 <label for="quantity">Quantity</label>                
                 <input onChange={(e) => setquantity(e.target.value)} value={quantity} id="quantity" style={{
                     border: "1px solid maroon",

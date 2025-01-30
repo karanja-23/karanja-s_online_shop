@@ -18,20 +18,36 @@ useEffect(() => {
                         <th>Price</th>
                         <th>Total</th>
                     </tr>
-                    {Object.entries(userCart).map(([key, value]) => {
-
-                        return(
-                            <tr>
-                                <td style={{textAlign: "left"}}>{value.product['name']}</td>
-                                <td>{value.quantity}</td>
-                                <td>{value.product.price}</td>
-                                <td>{value.product.price * value.quantity}</td>
-                            </tr>
-                        )
+                    {Object.keys(userCart).map((key) => {
+                      const product = userCart[key];
+                      return (
+                        <tr key={key}>
+                          <td style={{ textAlign: "left" }}>{product.product.name}</td>
+                          <td>{product.quantity}</td>
+                          <td>{product.product.price.toLocaleString("en-US")}</td>
+                          <td>{(product.product.price * product.quantity).toLocaleString("en-US")}</td>
+                          
+                        </tr>
+                      );
                     })}
+                    <tr>
+                        <td colSpan="3" style={{ textAlign: "right", fontWeight: "bold" }}>Total:</td>
+                        <td>{userCart.reduce((total, item) => total + item.product.price * item.quantity, 0).toLocaleString("en-US")}</td>
+                    </tr>
                 </table>
-      
-            
+                <div style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "10px",
+                    gap: "10px"
+                }}>
+                    <div>
+                        <button id="checkout-button">Checkout</button>
+                    </div>
+                    <div>
+                        <button id="clear-button">Clear Cart</button>
+                    </div>
+                </div>            
             </div>
 
         </div>

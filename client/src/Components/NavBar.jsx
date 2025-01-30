@@ -115,7 +115,7 @@ function NavBar(){
     function handleLogOut(){
         setLogin(false)
     }
- 
+    
     return(
         <div id="navigation"> 
             <Sticker />
