@@ -13,6 +13,7 @@ import Footer from "../Components/Footer"
 import { useContext,useEffect } from "react"
 import { ProductContext } from "../Components/ProductContext"
 import { useNavigate } from "react-router-dom"
+
 function Home(){
     const navigate = useNavigate()
     const{login} = useContext(ProductContext)

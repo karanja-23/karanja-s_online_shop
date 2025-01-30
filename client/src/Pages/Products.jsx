@@ -102,7 +102,7 @@ function Products(){
                     const start = (currentPage -1) * itemsPerPage;
                     const end = currentPage * itemsPerPage
                     if(index >= start && index < end){
-                        return <ProductCard  key={index} image={product.image} name={product.name} description={product.description} price={product.price} product={product}/>
+                        return <ProductCard  key={index} image={product.image} name={product.name} description={product.description} price={product.price} id={product.id}/>
                     }
                     else{
                         return null

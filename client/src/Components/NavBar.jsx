@@ -19,6 +19,7 @@ function NavBar(){
     const {theSearchedProduct, setTheSearchedProduct} = useContext(ProductContext)
     const [showCategories, setShowCategories] = useState(false)
     const {login, setLogin} = useContext(ProductContext)
+    const {cartItems, setCartItems} = useContext(ProductContext)    
     useEffect(() => {
         const timeoutId = setTimeout(() => {
           fetch('http://localhost:5555/product', {
@@ -148,10 +149,11 @@ function NavBar(){
                     <NavLink className="link" to="/login">{login ? <span onClick={handleLogOut}>logout</span>: <span>Login/Register</span> }</NavLink>
                     
                     </div>
-                    <div>
+                    <div style={{display:'flex', position: 'relative',flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                     <FontAwesomeIcon style={{
                         fontSize: '1.5em'
                     }} icon={faCartShopping} />
+                    {login ? <span style={{position:"absolute", top:"-20px", right:"-3px", fontSize: "0.8em", color: "white",fontWeight: "700", backgroundColor: "maroon", width: "20px", height: "20px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>{cartItems}</span> : null}
                     </div>
 
                 </div>
