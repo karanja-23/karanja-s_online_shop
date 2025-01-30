@@ -9,6 +9,7 @@ function CurrentProductCard(props) {
    const [addedToCart, setaddedToCart] = useState(false)
    const [updatedCart, setupdatedCart] = useState(false)
    const {cartItems, setCartItems} = useContext(ProductContext)
+   const { userCart, setUserCart } = useContext(ProductContext)
     function addToCart(e) {
         e.preventDefault()
         fetch('http://localhost:5555/cart', {
@@ -39,12 +40,14 @@ function CurrentProductCard(props) {
                 })
                 .then(response => response.json())
                 .then(data => {
+                    setUserCart(data)
                     setCartItems(data.length)
                 })
             }
             if (data['message'] =='Product quantity updated in cart'){
                 setupdatedCart(true)
                 setTimeout(() => {
+                    setUserCart(data)
                     setupdatedCart(false)
                 }, 1050)
                 fetch('http://localhost:5555/getcart', {

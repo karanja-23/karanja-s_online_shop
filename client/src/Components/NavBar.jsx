@@ -19,7 +19,9 @@ function NavBar(){
     const {theSearchedProduct, setTheSearchedProduct} = useContext(ProductContext)
     const [showCategories, setShowCategories] = useState(false)
     const {login, setLogin} = useContext(ProductContext)
-    const {cartItems, setCartItems} = useContext(ProductContext)    
+    const {cartItems, setCartItems} = useContext(ProductContext) 
+    const {userCart, setUserCart} = useContext(ProductContext)
+    const {token, setToken} = useContext(ProductContext) 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
           fetch('http://localhost:5555/product', {
@@ -89,6 +91,23 @@ function NavBar(){
         .then(data => setCategories(data))
            
     },[])
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+          fetch('http://localhost:5555/getcart', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            setUserCart(data)
+            setCartItems(data.length)
+          })
+        }, 100);
+        return () => clearTimeout(timeoutId);
+      }, [token])
     function handleSetCategories(){
         setShowCategories(!showCategories)
         
@@ -150,9 +169,12 @@ function NavBar(){
                     
                     </div>
                     <div style={{display:'flex', position: 'relative',flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                    <NavLink to="/cart">
                     <FontAwesomeIcon style={{
-                        fontSize: '1.5em'
-                    }} icon={faCartShopping} />
+                        fontSize: '1.5em',
+                        color: "rgb(4, 4, 48)"
+                    }} icon={faCartShopping} />            
+                    </NavLink>
                     {login ? <span style={{position:"absolute", top:"-20px", right:"-3px", fontSize: "0.8em", color: "white",fontWeight: "700", backgroundColor: "maroon", width: "20px", height: "20px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>{cartItems}</span> : null}
                     </div>
 

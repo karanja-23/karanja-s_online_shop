@@ -180,6 +180,18 @@ def get_cart():
     cart_items = Cart.query.filter_by(user_id=user_id).all()
     cart_items_dict = [item.to_dict() for item in cart_items]
     return jsonify(cart_items_dict), 200
+
+
+@app.route('/productById/<int:id>', methods=['GET'])
+def get_product_by_id(id):  
+    
+    product = Product.query.filter_by(id=id).first()
+    return product.to_dict(),200
+    
+    
+    
+    
+    
 if __name__ == '__main__':
     app.run(host='localhost', port=5555,debug=True)
    

@@ -10,8 +10,9 @@ const ProductProvider = ({ children }) => {
     const [login, setLogin] = useState(false)
     const [token, setToken] = useState(useState(''))
     const [cartItems, setCartItems] = useState(0)
+    const [userCart, setUserCart] = useState([])
     return (
-        <ProductContext.Provider value={{ currentProduct, setcurrentProduct,theSearchedProduct, setTheSearchedProduct, login, setLogin, products, setProducts, token, setToken,cartItems, setCartItems }}>
+        <ProductContext.Provider value={{ currentProduct, setcurrentProduct,theSearchedProduct, setTheSearchedProduct, login, setLogin, products, setProducts, token, setToken,cartItems, setCartItems, userCart, setUserCart }}>
             {children}
         </ProductContext.Provider>
     );};
