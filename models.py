@@ -87,4 +87,3 @@ class Cart(db.Model):
             'quantity': self.quantity,
             'product': self.product.to_dict()
         }
-    
