@@ -32,7 +32,7 @@ useEffect(() => {
                     })}
                     <tr>
                         <td colSpan="3" style={{ textAlign: "right", fontWeight: "bold" }}>Total:</td>
-                        <td>{userCart.reduce((total, item) => total + item.product.price * item.quantity, 0).toLocaleString("en-US")}</td>
+                        <td style={{ fontWeight: "bold" }}>{userCart.reduce((total, item) => total + item.product.price * item.quantity, 0).toLocaleString("en-US")}</td>
                     </tr>
                 </table>
                 <div style={{
