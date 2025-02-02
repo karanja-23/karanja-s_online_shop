@@ -9,7 +9,7 @@ function AddCategories(){
         const new_category = {
             name,
         }
-        fetch(`http://localhost:5555/category`,{
+        fetch(`https://karanja-s-online-shop-v1q7.onrender.com/category`,{
             method : 'POST',
             headers: {
                 'Content-Type': 'application/json'

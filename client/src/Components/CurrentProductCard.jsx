@@ -12,7 +12,7 @@ function CurrentProductCard(props) {
    const { userCart, setUserCart } = useContext(ProductContext)
     function addToCart(e) {
         e.preventDefault()
-        fetch('http://localhost:5555/cart', {
+        fetch('https://karanja-s-online-shop-v1q7.onrender.com/cart', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ function CurrentProductCard(props) {
                 setTimeout(() => {
                     setaddedToCart(false)
                 }, 1050)
-                fetch('http://localhost:5555/getcart', {
+                fetch('https://karanja-s-online-shop-v1q7.onrender.com/getcart', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ function CurrentProductCard(props) {
                     
                     setupdatedCart(false)
                 }, 1050)
-                fetch('http://localhost:5555/getcart', {
+                fetch('https://karanja-s-online-shop-v1q7.onrender.com/getcart', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

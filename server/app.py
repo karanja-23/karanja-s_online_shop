@@ -194,7 +194,14 @@ def get_product_by_id(id):
     product = Product.query.filter_by(id=id).first()
     return product.to_dict(),200
     
-    
+@app.route('/role/<int:id>', methods=['PATCH']) 
+def update_role(id):
+    user = User.query.filter_by(id=id).first()
+    for attr in request.json:
+        setattr(user, attr, request.json.get(attr))
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'message': 'Role updated successfully'}), 200   
     
     
 if __name__ == '__main__':

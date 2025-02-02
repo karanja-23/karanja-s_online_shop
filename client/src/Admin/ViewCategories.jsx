@@ -10,7 +10,7 @@ function ViewCategories(){
         setCount(count+1)
     }
   useEffect(()=>{
-    fetch('http://localhost:5555/categories',{
+    fetch('https://karanja-s-online-shop-v1q7.onrender.com/categories',{
         method: 'GET',
         headers: {
             'Content-Type':'application/json'

@@ -23,7 +23,7 @@ function Products(){
     },[])    
 
     useEffect(() =>{
-        fetch('http://localhost:5555/product',{
+        fetch('https://karanja-s-online-shop-v1q7.onrender.com/product',{
             method: 'GET',
             headers:{
                 'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ function Products(){
     }, [currentPage, itemsPerPage])
 
     useEffect(() =>{
-        fetch ('http://localhost:5555/categories', {
+        fetch ('https://karanja-s-online-shop-v1q7.onrender.com/categories', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json'
@@ -54,7 +54,7 @@ function Products(){
     function handleFilter(e) {
         const selectedId = e.target.value;
         if (selectedId == "") {
-            fetch('http://localhost:5555/product', {
+            fetch('https://karanja-s-online-shop-v1q7.onrender.com/product', {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ function Products(){
             })
           }
         else{
-            fetch (`http://localhost:5555/select/category/${selectedId}`,{
+            fetch (`https://karanja-s-online-shop-v1q7.onrender.com/select/category/${selectedId}`,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -81,9 +81,6 @@ function Products(){
         }
     }
     
-    if(loadingProducts || loadingCategories){
-        return <Loading />
-    }
 
     return(
         <div className="main">
@@ -97,20 +94,23 @@ function Products(){
                         })}
                     </select>
                 </div>
-                <div id="my-products">
-                {products.map((product,index) =>{
-                    const start = (currentPage -1) * itemsPerPage;
-                    const end = currentPage * itemsPerPage
-                    if(index >= start && index < end){
-                        
-                        return <ProductCard  key={index} image={product.image} name={product.name} description={product.description} price={product.price.toLocaleString("en-US")} id={product.id}/>
-                    }
-                    else{
-                        return null
-                    }
-                    
-                })}            
-                </div>
+                {products ? (
+                        <div id="my-products">
+                        {products.map((product,index) =>{
+                            const start = (currentPage -1) * itemsPerPage;
+                            const end = currentPage * itemsPerPage
+                            if(index >= start && index < end){
+                                
+                                return <ProductCard  key={index} image={product.image} name={product.name} description={product.description} price={product.price.toLocaleString("en-US")} id={product.id}/>
+                            }
+                            else{
+                                return null
+                            }
+                            
+                        })}            
+                        </div>            
+
+                ) : ( <Loading />)}
                 
                 <div id="pagination">
                     <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
