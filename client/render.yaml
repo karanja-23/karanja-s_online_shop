@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: my-service
+    env: node
+    language: javascript
+    build:
+      command: npm install
+    start:
+      command: npm start
+    port: 3000
+    host: 0.0.0.0
+    healthCheck:
+      path: /

@@ -40,7 +40,7 @@ function SignUp(){
             email,
             password
         }; 
-        fetch ('http://localhost:5555/user', {
+        fetch ('https://karanja-s-online-shop-v1q7.onrender.com/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
