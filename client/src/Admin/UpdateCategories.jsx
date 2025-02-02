@@ -10,7 +10,7 @@ function UpdateCategories(){
     const[categoryNames, setCategoryNames] = useState({})
     
     useEffect(()=>{
-        fetch('http://localhost:5555/categories',{
+        fetch('https://karanja-s-online-shop-v1q7.onrender.com/categories',{
             method: 'GET',
             headers: {
                 'Content-Type':'application/json'
@@ -27,7 +27,7 @@ function UpdateCategories(){
         })
       },[]) 
       function handleEdit(id){
-        fetch(`http://localhost:5555/category/${id}`, {
+        fetch(`https://karanja-s-online-shop-v1q7.onrender.com/category/${id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json'

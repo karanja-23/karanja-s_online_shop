@@ -24,7 +24,7 @@ function NavBar(){
     const {token, setToken} = useContext(ProductContext) 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-          fetch('http://localhost:5555/product', {
+          fetch('https://karanja-s-online-shop-v1q7.onrender.com/product', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ function NavBar(){
     }
     function handleSubmit(event){
         event.preventDefault();
-        fetch('http://localhost:5555/product',{
+        fetch('https://karanja-s-online-shop-v1q7.onrender.com/product',{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ function NavBar(){
         } )
     }
     useEffect(() =>{
-        fetch ('http://localhost:5555/categories', {
+        fetch ('https://karanja-s-online-shop-v1q7.onrender.com/categories', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json'
@@ -93,7 +93,7 @@ function NavBar(){
     },[])
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-          fetch('http://localhost:5555/getcart', {
+          fetch('https://karanja-s-online-shop-v1q7.onrender.com/getcart', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

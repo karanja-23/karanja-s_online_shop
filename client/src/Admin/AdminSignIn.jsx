@@ -35,7 +35,7 @@ function AdminSignIn() {
             setPasswordError(true)
             return;
         }
-        fetch(`http://localhost:5555/user/${email}`,{
+        fetch(`https://karanja-s-online-shop-v1q7.onrender.com/user/${email}`,{
             method: 'GET',
             headers: {
                 'Content-Type':'application/json'

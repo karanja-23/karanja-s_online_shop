@@ -9,7 +9,7 @@ function DeleteCategories(){
     const[isDelete, setIsDelete] = useState(false)
   
   useEffect(()=>{
-    fetch('http://localhost:5555/categories',{
+    fetch('https://karanja-s-online-shop-v1q7.onrender.com/categories',{
         method: 'GET',
         headers: {
             'Content-Type':'application/json'
@@ -19,7 +19,7 @@ function DeleteCategories(){
     .then(data => setCategories(data))
   },[isDelete])  
   function handleDelete(id){
-    fetch(`http://localhost:5555/category/${id}`,{
+    fetch(`https://karanja-s-online-shop-v1q7.onrender.com/category/${id}`,{
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ function DeleteCategories(){
     }
     useEffect(() => {
         if (isDelete) {
-          fetch('http://localhost:5555/categories',{
+          fetch('https://karanja-s-online-shop-v1q7.onrender.com/categories',{
             method: 'GET',
             headers: {
               'Content-Type':'application/json'

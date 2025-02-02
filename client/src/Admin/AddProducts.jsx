@@ -11,7 +11,7 @@ function AddProducts(){
     const [image, setImage] = useState(null)
 
     useEffect(()=>{
-        fetch('http://localhost:5555/categories')
+        fetch('https://karanja-s-online-shop-v1q7.onrender.com/categories')
         .then(response => response.json())
         .then(data => setCategories(data))
     },[])
@@ -26,7 +26,7 @@ function AddProducts(){
         formData.append('description', description)
         formData.append('image', image)
 
-        fetch(`http://localhost:5555/products`,{
+        fetch(`https://karanja-s-online-shop-v1q7.onrender.com/products`,{
             method : 'POST',
             body: formData
         })

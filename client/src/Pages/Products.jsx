@@ -23,7 +23,7 @@ function Products(){
     },[])    
 
     useEffect(() =>{
-        fetch('http://localhost:5555/product',{
+        fetch('https://karanja-s-online-shop-v1q7.onrender.com/product',{
             method: 'GET',
             headers:{
                 'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ function Products(){
     }, [currentPage, itemsPerPage])
 
     useEffect(() =>{
-        fetch ('http://localhost:5555/categories', {
+        fetch ('https://karanja-s-online-shop-v1q7.onrender.com/categories', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json'
@@ -54,7 +54,7 @@ function Products(){
     function handleFilter(e) {
         const selectedId = e.target.value;
         if (selectedId == "") {
-            fetch('http://localhost:5555/product', {
+            fetch('https://karanja-s-online-shop-v1q7.onrender.com/product', {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ function Products(){
             })
           }
         else{
-            fetch (`http://localhost:5555/select/category/${selectedId}`,{
+            fetch (`https://karanja-s-online-shop-v1q7.onrender.com/select/category/${selectedId}`,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
