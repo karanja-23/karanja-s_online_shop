@@ -81,6 +81,9 @@ function Products(){
         }
     }
     
+    if(loadingProducts || loadingCategories){
+        return <Loading />
+    }
 
     return(
         <div className="main">
@@ -94,23 +97,20 @@ function Products(){
                         })}
                     </select>
                 </div>
-                {products ? (
-                        <div id="my-products">
-                        {products.map((product,index) =>{
-                            const start = (currentPage -1) * itemsPerPage;
-                            const end = currentPage * itemsPerPage
-                            if(index >= start && index < end){
-                                
-                                return <ProductCard  key={index} image={product.image} name={product.name} description={product.description} price={product.price.toLocaleString("en-US")} id={product.id}/>
-                            }
-                            else{
-                                return null
-                            }
-                            
-                        })}            
-                        </div>            
-
-                ) : ( <Loading />)}
+                <div id="my-products">
+                {products.map((product,index) =>{
+                    const start = (currentPage -1) * itemsPerPage;
+                    const end = currentPage * itemsPerPage
+                    if(index >= start && index < end){
+                        
+                        return <ProductCard  key={index} image={product.image} name={product.name} description={product.description} price={product.price.toLocaleString("en-US")} id={product.id}/>
+                    }
+                    else{
+                        return null
+                    }
+                    
+                })}            
+                </div>
                 
                 <div id="pagination">
                     <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
