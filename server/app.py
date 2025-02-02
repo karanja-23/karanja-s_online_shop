@@ -23,18 +23,22 @@ def generate_token(user):
     return access_token
 @app.route('/user', methods=['GET','POST'])
 def add_user():
-    new_user = User(
-        name=request.json.get('name'),
-        email=request.json.get('email'),
-        password=request.json.get('password')
-    )
-    if User.query.filter(User.email==new_user.email).first():
-        return jsonify({'message': 'email already exists'}),409
-    if User.query.filter(User.name==new_user.name).first():
-        return jsonify({'message': 'username already exists'}),409
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify({'message':'User added succesfully'}),201
+    if request.method == 'POST':
+        new_user = User(
+            name=request.json.get('name'),
+            email=request.json.get('email'),
+            password=request.json.get('password')
+        )
+        if User.query.filter(User.email==new_user.email).first():
+            return jsonify({'message': 'email already exists'}),409
+        if User.query.filter(User.name==new_user.name).first():
+            return jsonify({'message': 'username already exists'}),409
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify({'message':'User added succesfully'}),201   
+    if request.method == 'GET':
+        users = User.query.all()
+        return jsonify([user.to_dict() for user in users])  
 @app.route('/user/<email>', methods=['GET'])
 def get_user(email):
     user = User.query.filter(User.email==email).first()
