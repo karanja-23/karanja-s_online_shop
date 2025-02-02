@@ -92,8 +92,8 @@ function Products(){
                 <div id="selectCategories">
                     <select onChange={(e) => {handleFilter(e)}}>
                         <option value="">All Categories</option>
-                        {categories.map((category) =>{
-                           return <option value={category.id}>{category.name}</option>
+                        {categories.map((category,index ) =>{
+                           return <option key={index} value={category.id}>{category.name}</option>
                         })}
                     </select>
                 </div>

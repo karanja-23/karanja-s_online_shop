@@ -14,7 +14,8 @@ jwt = JWTManager(app)
 
 app.config['JWT_SECRET_KEY'] = "Hom3work"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{os.environ['DB_USER']}:{os.environ['DB_PASSWORD']}@{os.environ['DB_HOST']}:{os.environ['DB_PORT']}/{os.environ['DB_NAME']}"
 db.init_app(app)
 migrate = Migrate(app, db)
 def generate_token(user):
@@ -193,4 +194,5 @@ def get_product_by_id(id):
     
     
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    app.run(host="localhost", port=5555, debug=True)
+    #app.run(host='0.0.0.0', port=8000, debug=True)
