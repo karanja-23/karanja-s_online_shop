@@ -33,7 +33,7 @@ function SignIn() {
             setPasswordError(true)
             return;
         }
-        fetch(`http://localhost:5555/login`,{
+        fetch(`/login`,{
             method: 'POST',
             headers: {
                 'Content-Type':'application/json'
