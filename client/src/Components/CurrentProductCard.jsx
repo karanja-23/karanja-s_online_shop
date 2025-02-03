@@ -60,7 +60,7 @@ function CurrentProductCard(props) {
                 .then(response => response.json())
                 .then(data => {
                     setCartItems(data.length)
-                    console.log(cartItems)
+                    
                 })
             }
         })
