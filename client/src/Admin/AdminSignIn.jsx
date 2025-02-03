@@ -1,21 +1,16 @@
 import {Toast, ToastFailed} from "../Components/Toast";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
+import { ProductContext } from "../Components/ProductContext";
 function AdminSignIn() {
+    const [isNotAdmin, setIsNotAdmin] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] =useState('')
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
-    const [showToast, setshowToast] = useState(false)
-    const [emailNotFound, setEmailNotFound] = useState(false)
-    const [wrongPassword, setWrongPassword] = useState(false)
-    const [notAdmin, setNotAdmin] = useState(false)
-    {/*const [user, setUser] = useState(null)*/}
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const {setLogin} = useContext(ProductContext)
+    const {setToken,token} = useContext(ProductContext)
     const navigate = useNavigate()
-    const {setIsAuthenticated, setUser} = useContext(AuthContext)
-
     useEffect(() => {
         if (emailError && email !== ''){
             setEmailError(false)
@@ -49,9 +44,12 @@ function AdminSignIn() {
         })
         .then(response => response.json())
         .then(data => {
+            if (data.role != 'admin'){
+                setIsNotAdmin(true)
+                return
+            }
             if(data['token']){
-                setToken(data['token'])
-                
+                setToken(data['token'])                
                 localStorage.setItem('token', data['token'])
                 setLogin(true)
                 navigate('/')
@@ -71,7 +69,7 @@ function AdminSignIn() {
             {showToast ? <Toast title="Success" message="Successfully logged in"/> : null}
             {emailNotFound ? <ToastFailed title="Account not found" message="Please check your email address"/> : null}
             {wrongPassword ? <ToastFailed title="Wrong password" message="Please check your password"/> : null}
-            {notAdmin ? <ToastFailed title="Not an admin" message="Please sign in as an admin"/> : null}
+            {isNotAdmin ? <ToastFailed title="Not an admin" message="Please sign in as an admin"/> : null}
             <form onSubmit={handleSubmit} > 
                 <h1>Sign In</h1>
                 <input onChange={(e) => setEmail(e.target.value)}  type="text" placeholder="Email"/>
