@@ -39,8 +39,11 @@ This is a fullstack e-commerce web app, built on React and Flask frameworks for 
 
 *****
 ## Live Link
-Or you can access the web application directly via;[https://karanja-s-online-shop-front-end.onrender.com/admin/] => admin UI
+Or you can access the web application directly via;
+[https://karanja-s-online-shop-front-end.onrender.com/admin/] => admin UI
+
 [https://karanja-s-online-shop-front-end.onrender.com/] => customer UI
+
 [https://karanja-s-online-shop-v1q7.onrender.com] => Flask API
 *****
 ## Dependencies
