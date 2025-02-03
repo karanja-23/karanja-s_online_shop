@@ -19,6 +19,7 @@ class User(db.Model, SerializerMixin):
         return {
             'id': self.id,
             'name': self.name,
+            'password':self.password,
             'email': self.email,
             'role': self.role
         }
