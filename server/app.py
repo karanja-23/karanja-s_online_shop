@@ -2,6 +2,7 @@ from flask import Flask, request,jsonify,make_response
 from flask_cors import CORS
 from models import db, User,Product,Categories,Cart
 from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
 from flask_jwt_extended import JWTManager,create_access_token,jwt_required,get_jwt_identity
 import base64
@@ -9,6 +10,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 CORS(app)
 jwt = JWTManager(app)
 
@@ -21,16 +23,20 @@ migrate = Migrate(app, db)
 def generate_token(user):
     access_token = create_access_token(identity=user.id)
     return access_token
+def hashPasswords(password):
+    return bcrypt.generate_password_hash(password).decode('utf-8')
 @app.route('/', methods=['GET'])
 def index():
     return jsonify({'message': 'Welcome to karanja_shop API'})
 @app.route('/user', methods=['GET','POST'])
 def add_user():
     if request.method == 'POST':
+        password=request.json.get('password')
+        hashed_password = hashPasswords(password)
         new_user = User(
             name=request.json.get('name'),
             email=request.json.get('email'),
-            password=request.json.get('password')
+            password=hashed_password
         )
         if User.query.filter(User.email==new_user.email).first():
             return jsonify({'message': 'email already exists'}),409
