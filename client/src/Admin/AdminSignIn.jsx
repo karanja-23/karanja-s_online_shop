@@ -43,15 +43,7 @@ function AdminSignIn() {
             
         })
         .then(response => response.json())
-        .then(data => {
-            if (data.role != 'admin'){
-                console.log(data)
-                setIsNotAdmin(true)
-                setTimeout(() => {
-                    setIsNotAdmin(false)
-                },1000)
-                return
-            }
+
             if(data['token']){
                 setToken(data['token'])                
                 localStorage.setItem('token', data['token'])
