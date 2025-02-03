@@ -13,7 +13,7 @@ class User(db.Model, SerializerMixin):
     password=db.Column(db.String(255), nullable=False)
     role= db.Column(db.String(255), default='user')
     cart=db.relationship('Cart', back_populates='user')
-    
+    serialize_rules = ("-cart")
 
     def __repr__(self):
         return f'<Player {self.name}>'
