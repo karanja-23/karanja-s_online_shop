@@ -1,21 +1,16 @@
 import {Toast, ToastFailed} from "../Components/Toast";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
+import { ProductContext } from "../Components/ProductContext";
 function AdminSignIn() {
+    const [isNotAdmin, setIsNotAdmin] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] =useState('')
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
-    const [showToast, setshowToast] = useState(false)
-    const [emailNotFound, setEmailNotFound] = useState(false)
-    const [wrongPassword, setWrongPassword] = useState(false)
-    const [notAdmin, setNotAdmin] = useState(false)
-    {/*const [user, setUser] = useState(null)*/}
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const {setAdminLoggedIn} = useContext(ProductContext)
+    const {setToken,token} = useContext(ProductContext)
     const navigate = useNavigate()
-    const {setIsAuthenticated, setUser} = useContext(AuthContext)
-
     useEffect(() => {
         if (emailError && email !== ''){
             setEmailError(false)
@@ -26,6 +21,10 @@ function AdminSignIn() {
         
     },[emailError, passwordError,email, password])
     function handleSubmit(event){
+        const loginCredentials = {
+            email,
+            password
+        }
         event.preventDefault();
         if (email == ''){
             setEmailError(true)
@@ -35,68 +34,36 @@ function AdminSignIn() {
             setPasswordError(true)
             return;
         }
-        fetch(`https://karanja-s-online-shop-v1q7.onrender.com/user/${email}`,{
-            method: 'GET',
+        fetch(`https://karanja-s-online-shop-v1q7.onrender.com/login`,{
+            method: 'POST',
             headers: {
                 'Content-Type':'application/json'
-            }
+            },
+            body: JSON.stringify(loginCredentials)
             
         })
         .then(response => response.json())
         .then(data => {
-            if ('message' in data){
-                setEmailNotFound(true)
-                setTimeout(() => {
-                    setEmailNotFound(false)
-                }, 1000)
+            
+            if(data['token']){
+                setToken(data['token'])                
+                localStorage.setItem('token', data['token'])
+                event.target.reset()
+                setAdminLoggedIn(true)
+                navigate('/admin')
             }
             else{
-                if ('password' in data && data['password']== password){
-                   
-                    if (data['role'] == 'admin'){
-                        setshowToast(true)
-                        setTimeout(() => {
-                            setshowToast(false)
-                        },1000)
-                        event.target.reset()                        
-                        setIsLoggedIn(true)
-                        setIsAuthenticated(true)
-                        setUser(data['name'])
-                        setTimeout(() => {
-                            navigate('/admin')
-                        }, 3000)
-                    }
-                    else{
-                        setNotAdmin(true)
-                        setTimeout(() => {
-                            setNotAdmin(false)
-                        }, 1000)
-                        event.target.reset()
-                    }
-                    
-
-                }
-                else{
-                    setWrongPassword(true)
-                    setTimeout(() => {
-                        setWrongPassword(false)
-                    }, 1000)
-                }
+                window.alert(data['message'])
             }
         })
-
         
     }
-    if (isLoggedIn){
-        navigate('/admin')
-    }
+
 
     return (
         <div id="signIn_form">
-            {showToast ? <Toast title="Success" message="Successfully logged in"/> : null}
-            {emailNotFound ? <ToastFailed title="Account not found" message="Please check your email address"/> : null}
-            {wrongPassword ? <ToastFailed title="Wrong password" message="Please check your password"/> : null}
-            {notAdmin ? <ToastFailed title="Not an admin" message="Please sign in as an admin"/> : null}
+
+            {isNotAdmin ? <ToastFailed title="Not an admin" message="Please sign in as an admin"/> : null}
             <form onSubmit={handleSubmit} > 
                 <h1>Sign In</h1>
                 <input onChange={(e) => setEmail(e.target.value)}  type="text" placeholder="Email"/>

@@ -2,6 +2,7 @@ from flask import Flask, request,jsonify,make_response
 from flask_cors import CORS
 from models import db, User,Product,Categories,Cart
 from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
 from flask_jwt_extended import JWTManager,create_access_token,jwt_required,get_jwt_identity
 import base64
@@ -9,6 +10,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 CORS(app)
 jwt = JWTManager(app)
 
@@ -21,16 +23,20 @@ migrate = Migrate(app, db)
 def generate_token(user):
     access_token = create_access_token(identity=user.id)
     return access_token
+def hashPasswords(password):
+    return bcrypt.generate_password_hash(password).decode('utf-8')
 @app.route('/', methods=['GET'])
 def index():
     return jsonify({'message': 'Welcome to karanja_shop API'})
 @app.route('/user', methods=['GET','POST'])
 def add_user():
     if request.method == 'POST':
+        password=request.json.get('password')
+        hashed_password = hashPasswords(password)
         new_user = User(
             name=request.json.get('name'),
             email=request.json.get('email'),
-            password=request.json.get('password')
+            password=hashed_password
         )
         if User.query.filter(User.email==new_user.email).first():
             return jsonify({'message': 'email already exists'}),409
@@ -42,23 +48,56 @@ def add_user():
     if request.method == 'GET':
         users = User.query.all()
         return jsonify([user.to_dict() for user in users])  
+@app.route('/admin/user', methods=['GET','POST'])
+def add_admin_user():
+    if request.method == 'POST':
+        password=request.json.get('password')
+        hashed_password = hashPasswords(password)
+        
+        new_user = User(
+            name=request.json.get('name'),
+            email=request.json.get('email'),
+            password=hashed_password,
+            role = 'admin'
+        )
+        if User.query.filter(User.email==new_user.email).first():
+            return jsonify({'message': 'email already exists'}),409
+        if User.query.filter(User.name==new_user.name).first():
+            return jsonify({'message': 'username already exists'}),409
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify({'message':'User added succesfully'}),201   
+    if request.method == 'GET':
+        users = User.query.all()
+        return jsonify([user.to_dict() for user in users]) 
 @app.route('/user/<email>', methods=['GET'])
 def get_user(email):
     user = User.query.filter(User.email==email).first()
     if user:
-        return user.to_dict(),200
+        return {"password": user.password}
     
     else:
         return jsonify({'message': 'Username does not exist'})  
+    
 @app.route('/login', methods=['POST'])
 def login():
     email = request.json.get('email')
     password = request.json.get('password')
     user = User.query.filter_by(email=email).first()
-    if user and user.password == password:
+    if user and bcrypt.check_password_hash(user.password, password):
         token = generate_token(user)
         return {'token': token}
     return {'error': 'Invalid credentials'}, 401
+@app.route('/delete/user/<int:id>', methods=['GET'])
+def delete_user_by_id(id):
+    user = User.query.filter_by(id=id).first()
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'message': 'User deleted successfully'}), 200
+    else:
+        return jsonify({'message': 'User not found'}), 404
+
 @app.route('/product', methods=['GET'])
 def get_products():
     if request.method == 'GET':
@@ -80,7 +119,7 @@ def add_product():
     image_file = request.files['image']
 
     if image_file:
-        image_binary = image_file.read()  # Read the image file binary data
+        image_binary = image_file.read() 
 
         new_product = Product(
             name=request.form.get('name'),

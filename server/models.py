@@ -13,8 +13,16 @@ class User(db.Model, SerializerMixin):
     password=db.Column(db.String(255), nullable=False)
     role= db.Column(db.String(255), default='user')
     cart=db.relationship('Cart', back_populates='user')
-    
+    serialize_rules = ("-cart")
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'password':self.password,
+            'email': self.email,
+            'role': self.role
+        }
     def __repr__(self):
         return f'<Player {self.name}>'
     
@@ -69,7 +77,7 @@ class Categories(db.Model, SerializerMixin):
         }
   
     
-class Cart(db.Model):
+class Cart(db.Model, SerializerMixin):
     
     __tablename__ = 'cart'
     
