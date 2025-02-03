@@ -1,18 +1,18 @@
 import Nav from "./AdminNavBar"
 import AdminMenu from "./AdminMenu"
-import { AuthContext } from "./AuthContext"
+import { ProductContext } from "../Components/ProductContext"
 import { useNavigate } from "react-router-dom"
 import { useContext, useEffect } from "react"
 
 function AdminHome(){
-    const {isAuthenticated} = useContext(AuthContext)
+    const {adminLoggedIn} = useContext(ProductContext)
     const navigate = useNavigate()
     
     useEffect(() => {
-        if (!isAuthenticated) {
+        if (!adminLoggedIn) {
             navigate('/admin/auth')
         }
-    }, [isAuthenticated, navigate])
+    }, [adminLoggedIn, navigate])
    
     return(
         <div>

@@ -49,7 +49,7 @@ function AdminSignIn() {
                 setToken(data['token'])                
                 localStorage.setItem('token', data['token'])
                 event.target.reset()
-                setAdminLoggedIn
+                setAdminLoggedIn(true)
                 navigate('/admin')
             }
             else{
