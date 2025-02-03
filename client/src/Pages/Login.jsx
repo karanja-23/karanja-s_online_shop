@@ -3,7 +3,7 @@ import SignIn from "../Components/SignIn"
 import SignUp from "../Components/SignUp" 
 import { useState, useEffect } from "react"
 import Footer from "../Components/Footer"
-import { useEffect } from "react"
+
 
 function Login(){
     
