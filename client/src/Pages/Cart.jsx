@@ -11,7 +11,6 @@ function Cart() {
             navigate ('/login')
         }
     },[]) 
-
     return(
         <div className="main">
             <NavBar />
