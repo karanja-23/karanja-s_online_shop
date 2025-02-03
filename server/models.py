@@ -69,7 +69,7 @@ class Categories(db.Model, SerializerMixin):
         }
   
     
-class Cart(db.Model):
+class Cart(db.Model, SerializerMixin):
     
     __tablename__ = 'cart'
     
