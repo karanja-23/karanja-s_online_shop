@@ -78,6 +78,7 @@ def get_user(email):
     
     else:
         return jsonify({'message': 'Username does not exist'})  
+    
 @app.route('/login', methods=['POST'])
 def login():
     email = request.json.get('email')
@@ -87,6 +88,16 @@ def login():
         token = generate_token(user)
         return {'token': token}
     return {'error': 'Invalid credentials'}, 401
+@app.route('/delete/user/<int:id>', methods=['GET'])
+def delete_user_by_id(id):
+    user = User.query.filter_by(id=id).first()
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'message': 'User deleted successfully'}), 200
+    else:
+        return jsonify({'message': 'User not found'}), 404
+
 @app.route('/product', methods=['GET'])
 def get_products():
     if request.method == 'GET':
