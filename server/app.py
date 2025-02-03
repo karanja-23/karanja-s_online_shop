@@ -49,7 +49,7 @@ def add_user():
         users = User.query.all()
         return jsonify([user.to_dict() for user in users])  
 @app.route('/admin/user', methods=['GET','POST'])
-def add_user():
+def add_admin_user():
     if request.method == 'POST':
         password=request.json.get('password')
         hashed_password = hashPasswords(password)
