@@ -84,7 +84,7 @@ def login():
     email = request.json.get('email')
     password = request.json.get('password')
     user = User.query.filter_by(email=email).first()
-    if user and user.password == hashPasswords(password):
+    if user and bcrypt.check_password_hash(user.password, password):
         token = generate_token(user)
         return {'token': token}
     return {'error': 'Invalid credentials'}, 401
