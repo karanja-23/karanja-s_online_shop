@@ -3,18 +3,12 @@ import SignIn from "../Components/SignIn"
 import SignUp from "../Components/SignUp" 
 import { useState, useEffect } from "react"
 import Footer from "../Components/Footer"
-import { useContext, useEffect } from "react"
-import { ProductProvider } from "../Components/ProductContext"
-import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+
 function Login(){
-    const { login} = useContext(ProductProvider)
+    
     const [isSignUp, setIsSignUp] = useState(false)
-    const navigate = useNavigate()
-    useEffect(() =>{
-        if (login ===false){
-            navigate ('/login')
-        }
-    },[])    
+   
 
     function handleSignupClick(){
         setIsSignUp(true)
