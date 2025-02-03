@@ -43,7 +43,8 @@ function AdminSignIn() {
             
         })
         .then(response => response.json())
-
+        .then(data => {
+            
             if(data['token']){
                 setToken(data['token'])                
                 localStorage.setItem('token', data['token'])
