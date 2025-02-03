@@ -21,6 +21,9 @@ migrate = Migrate(app, db)
 def generate_token(user):
     access_token = create_access_token(identity=user.id)
     return access_token
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({'message': 'Welcome to karanja_shop API'})
 @app.route('/user', methods=['GET','POST'])
 def add_user():
     if request.method == 'POST':
