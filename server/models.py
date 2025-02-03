@@ -15,6 +15,13 @@ class User(db.Model, SerializerMixin):
     cart=db.relationship('Cart', back_populates='user')
     serialize_rules = ("-cart")
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'role': self.role
+        }
     def __repr__(self):
         return f'<Player {self.name}>'
     
