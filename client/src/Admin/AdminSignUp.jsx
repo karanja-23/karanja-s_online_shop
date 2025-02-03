@@ -43,7 +43,7 @@ function AdminSignUp(){
             email,
             password
         }; 
-        fetch ('https://karanja-s-online-shop-v1q7.onrender.com/user', {
+        fetch ('https://karanja-s-online-shop-v1q7.onrender.com/admin/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
