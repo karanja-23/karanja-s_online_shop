@@ -8,7 +8,7 @@ function AdminSignIn() {
     const [password, setPassword] =useState('')
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
-    const {setLogin} = useContext(ProductContext)
+    const {setAdminLoggedIn} = useContext(ProductContext)
     const {setToken,token} = useContext(ProductContext)
     const navigate = useNavigate()
     useEffect(() => {
@@ -51,7 +51,7 @@ function AdminSignIn() {
             if(data['token']){
                 setToken(data['token'])                
                 localStorage.setItem('token', data['token'])
-                setLogin(true)
+                setAdminLoggedIn
                 navigate('/')
             }
             else{
@@ -60,9 +60,7 @@ function AdminSignIn() {
         })
         event.target.reset()
     }
-    if (isLoggedIn){
-        navigate('/admin')
-    }
+
 
     return (
         <div id="signIn_form">
