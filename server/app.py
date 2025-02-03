@@ -119,7 +119,7 @@ def add_product():
     image_file = request.files['image']
 
     if image_file:
-        image_binary = image_file.read()  # Read the image file binary data
+        image_binary = image_file.read() 
 
         new_product = Product(
             name=request.form.get('name'),
