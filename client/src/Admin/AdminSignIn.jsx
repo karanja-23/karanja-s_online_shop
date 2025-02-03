@@ -64,9 +64,7 @@ function AdminSignIn() {
 
     return (
         <div id="signIn_form">
-            {showToast ? <Toast title="Success" message="Successfully logged in"/> : null}
-            {emailNotFound ? <ToastFailed title="Account not found" message="Please check your email address"/> : null}
-            {wrongPassword ? <ToastFailed title="Wrong password" message="Please check your password"/> : null}
+
             {isNotAdmin ? <ToastFailed title="Not an admin" message="Please sign in as an admin"/> : null}
             <form onSubmit={handleSubmit} > 
                 <h1>Sign In</h1>

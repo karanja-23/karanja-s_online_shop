@@ -74,7 +74,7 @@ def add_admin_user():
 def get_user(email):
     user = User.query.filter(User.email==email).first()
     if user:
-        return user.to_dict(),200
+        return {"password": user.password}
     
     else:
         return jsonify({'message': 'Username does not exist'})  
