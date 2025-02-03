@@ -26,6 +26,10 @@ function AdminSignIn() {
         
     },[emailError, passwordError,email, password])
     function handleSubmit(event){
+        const loginCredentials = {
+            email,
+            password
+        }
         event.preventDefault();
         if (email == ''){
             setEmailError(true)
@@ -35,57 +39,28 @@ function AdminSignIn() {
             setPasswordError(true)
             return;
         }
-        fetch(`https://karanja-s-online-shop-v1q7.onrender.com/user/${email}`,{
-            method: 'GET',
+        fetch(`https://karanja-s-online-shop-v1q7.onrender.com/login`,{
+            method: 'POST',
             headers: {
                 'Content-Type':'application/json'
-            }
+            },
+            body: JSON.stringify(loginCredentials)
             
         })
         .then(response => response.json())
         .then(data => {
-            if ('message' in data){
-                setEmailNotFound(true)
-                setTimeout(() => {
-                    setEmailNotFound(false)
-                }, 1000)
+            if(data['token']){
+                setToken(data['token'])
+                
+                localStorage.setItem('token', data['token'])
+                setLogin(true)
+                navigate('/')
             }
             else{
-                if ('password' in data && data['password']== password){
-                   
-                    if (data['role'] == 'admin'){
-                        setshowToast(true)
-                        setTimeout(() => {
-                            setshowToast(false)
-                        },1000)
-                        event.target.reset()                        
-                        setIsLoggedIn(true)
-                        setIsAuthenticated(true)
-                        setUser(data['name'])
-                        setTimeout(() => {
-                            navigate('/admin')
-                        }, 3000)
-                    }
-                    else{
-                        setNotAdmin(true)
-                        setTimeout(() => {
-                            setNotAdmin(false)
-                        }, 1000)
-                        event.target.reset()
-                    }
-                    
-
-                }
-                else{
-                    setWrongPassword(true)
-                    setTimeout(() => {
-                        setWrongPassword(false)
-                    }, 1000)
-                }
+                window.alert(data['message'])
             }
         })
-
-        
+        event.target.reset()
     }
     if (isLoggedIn){
         navigate('/admin')
