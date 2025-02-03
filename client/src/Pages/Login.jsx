@@ -4,8 +4,12 @@ import SignUp from "../Components/SignUp"
 import { useState, useEffect } from "react"
 import Footer from "../Components/Footer"
 
+
 function Login(){
+    
     const [isSignUp, setIsSignUp] = useState(false)
+   
+
     function handleSignupClick(){
         setIsSignUp(true)
     }

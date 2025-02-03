@@ -1,12 +1,16 @@
 import NavBar from "../Components/NavBar"
 import { useContext, useEffect } from "react"
 import { ProductContext } from "../Components/ProductContext"
+import { useNavigate } from "react-router-dom"
 function Cart() {
-const {userCart} = useContext(ProductContext)
-useEffect(() => {
-    console.log(userCart)
-},[])
-
+    const {userCart} = useContext(ProductContext)
+    const navigate = useNavigate()
+    const{login} = useContext(ProductContext)
+    useEffect(() =>{
+        if (login ===false){
+            navigate ('/login')
+        }
+    },[]) 
     return(
         <div className="main">
             <NavBar />
