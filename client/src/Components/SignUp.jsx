@@ -56,7 +56,7 @@ function SignUp(){
                 window.alert(data['message'])
             }
             if (data['message'] == 'User added succesfully'){
-                event.target.reset()
+                
                 window.alert('success!')
                 Navigate('/')
             }
