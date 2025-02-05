@@ -49,6 +49,9 @@ function SignUp(){
         })
         .then(response => response.json())
         .then(data => {
+            if(data['message'] =='username already exists'){
+                window.alert(data['message'])
+            }
             if(data['message'] == 'email already exists'){
                 window.alert(data['message'])
             }
