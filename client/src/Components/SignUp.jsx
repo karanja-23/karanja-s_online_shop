@@ -60,7 +60,7 @@ function SignUp(){
             if (data['message'] == 'User added succesfully'){
                 
                 window.alert('success!\nPlease Log in.')
-                setIsSignUp(true)
+                setIsSignUp(false)
 
             }
         })
