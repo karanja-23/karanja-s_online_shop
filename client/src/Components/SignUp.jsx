@@ -1,5 +1,6 @@
 
-import { useState,useEffect } from "react"
+import { useState,useEffect, useContext } from "react"
+import { ProductContext } from "./ProductContext";
 function SignUp(){
     const [name,setName] = useState('');
     const [email, setEmail] = useState('');
@@ -7,6 +8,7 @@ function SignUp(){
     const [errorName, setErrorName] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
     const [errorPassword, setErrorPassword] = useState('');
+    const {isSignUp, setIsSignUp} = useContext(ProductContext)
    
     useEffect(() => {
         if (name !== '' && errorName){
@@ -49,13 +51,21 @@ function SignUp(){
         })
         .then(response => response.json())
         .then(data => {
+            if(data['message'] =='username already exists'){
+                window.alert(data['message'])
+            }
+            if(data['message'] == 'email already exists'){
+                window.alert(data['message'])
+            }
             if (data['message'] == 'User added succesfully'){
-                window.alert('success!')
-                Navigate('/')
+                
+                window.alert('success!\nPlease Log in.')
+                setIsSignUp(false)
+
             }
         })
         .catch(error => console.error(error));
-        event.target.reset()
+        
 
         
     }

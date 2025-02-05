@@ -1,14 +1,14 @@
 import NavBar from "../Components/NavBar"
 import SignIn from "../Components/SignIn"
 import SignUp from "../Components/SignUp" 
-import { useState, useEffect } from "react"
+import { useState, useEffect,useContext } from "react"
+import { ProductContext } from "../Components/ProductContext"
 import Footer from "../Components/Footer"
 
 
 function Login(){
-    
-    const [isSignUp, setIsSignUp] = useState(false)
-   
+    const {isSignUp, setIsSignUp} = useContext(ProductContext)
+     
 
     function handleSignupClick(){
         setIsSignUp(true)
