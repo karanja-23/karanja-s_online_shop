@@ -49,13 +49,17 @@ function SignUp(){
         })
         .then(response => response.json())
         .then(data => {
+            if(data['message'] == 'email already exists'){
+                window.alert(data['message'])
+            }
             if (data['message'] == 'User added succesfully'){
+                event.target.reset()
                 window.alert('success!')
                 Navigate('/')
             }
         })
         .catch(error => console.error(error));
-        event.target.reset()
+        
 
         
     }
