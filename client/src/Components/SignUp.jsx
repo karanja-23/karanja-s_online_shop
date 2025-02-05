@@ -7,6 +7,7 @@ function SignUp(){
     const [errorName, setErrorName] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
     const [errorPassword, setErrorPassword] = useState('');
+    const {isSignUp, setIsSignUp} = useContext(ProductContext)
    
     useEffect(() => {
         if (name !== '' && errorName){
@@ -57,8 +58,9 @@ function SignUp(){
             }
             if (data['message'] == 'User added succesfully'){
                 
-                window.alert('success!')
-                Navigate('/')
+                window.alert('success!\nPlease Log in.')
+                setIsSignUp(true)
+
             }
         })
         .catch(error => console.error(error));
