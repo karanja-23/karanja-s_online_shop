@@ -1,5 +1,5 @@
 
-import { useState,useEffect } from "react"
+import { useState,useEffect, useContext } from "react"
 function SignUp(){
     const [name,setName] = useState('');
     const [email, setEmail] = useState('');
