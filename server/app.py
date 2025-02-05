@@ -88,7 +88,7 @@ def login():
         token = generate_token(user)
         return {'token': token}
     return {'error': 'Invalid credentials'}, 401
-@app.route('/delete/user/<int:id>', methods=['GET'])
+@app.route('/delete/user/<int:id>', methods=['DELETE'])
 def delete_user_by_id(id):
     user = User.query.filter_by(id=id).first()
     if user:
