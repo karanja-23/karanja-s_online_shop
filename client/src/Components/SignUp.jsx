@@ -1,5 +1,6 @@
 
 import { useState,useEffect, useContext } from "react"
+import { ProductContext } from "./ProductContext";
 function SignUp(){
     const [name,setName] = useState('');
     const [email, setEmail] = useState('');
