@@ -270,7 +270,7 @@ body{
     box-sizing: border-box;
 }
 #admin-menu{
-    position: absolute;
+    position: fixed;
     top: 105px;
     left: 1px;
     min-height: calc(100vh - 110px);
