@@ -248,7 +248,7 @@ body{
 }
 
 #admin-nav{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     min-height: 30px;
