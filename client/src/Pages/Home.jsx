@@ -16,13 +16,7 @@ import { useNavigate } from "react-router-dom"
 
 function Home(){
     const navigate = useNavigate()
-    const{login} = useContext(ProductContext)
 
-    useEffect(() =>{
-        if (login ===false){
-            navigate ('/login')
-        }
-    },[])
     return(
         <div className="main">
             <NavBar/>
