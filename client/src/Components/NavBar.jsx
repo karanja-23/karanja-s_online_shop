@@ -9,9 +9,11 @@ import { useState, useEffect, useContext, useRef } from "react"
 import { ProductContext } from "./ProductContext"
 import NavSearch from "./NavSearch"
 import Loading from "../Components/Loading"
+import { useNavigate } from "react-router-dom"
 
 
 function NavBar(){
+    const navigate = useNavigate()
     const [isSearching, setIsSearching] = useState('')
     const navSearchRef = useRef(null)
     const [showNavSearch, setShowNavSearch] = useState(false)
@@ -115,6 +117,11 @@ function NavBar(){
     function handleLogOut(){
         setLogin(false)
     }
+    function handleShowCart(){
+        if (login === false){
+            navigate('/login')
+        }
+    }
     
     return(
         <div id="navigation"> 
@@ -171,8 +178,8 @@ function NavBar(){
                     <div style={{display:'flex', position: 'relative',flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                     <NavLink to="/cart">
                     <FontAwesomeIcon style={{
-                        fontSize: '1.5em',
-                        color: "rgb(4, 4, 48)"
+                        onClick: {handleShowCart},
+                        fontSize: '1.5em',                        color: "rgb(4, 4, 48)"
                     }} icon={faCartShopping} />            
                     </NavLink>
                     {login ? <span style={{position:"absolute", top:"-20px", right:"-3px", fontSize: "0.8em", color: "white",fontWeight: "700", backgroundColor: "maroon", width: "20px", height: "20px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>{cartItems}</span> : null}
